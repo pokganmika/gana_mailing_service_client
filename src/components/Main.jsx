@@ -18,6 +18,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 
+import axios from "axios";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -94,6 +96,11 @@ export default function MiniDrawer() {
     setOpen(false);
   }
 
+  const test = async () => {
+    await axios.get("http://192.168.0.114/sendmail");
+    console.log("click");
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -115,7 +122,7 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap onClick={test}>
             Mini variant drawer
           </Typography>
         </Toolbar>
