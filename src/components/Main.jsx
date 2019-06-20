@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: "#006600",
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -122,8 +123,13 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap onClick={test}>
-            Mini variant drawer
+          <Typography
+            variant="h6"
+            noWrap
+            style={{ color: "white" }}
+            onClick={test}
+          >
+            Gana Mailing
           </Typography>
         </Toolbar>
       </AppBar>
