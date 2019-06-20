@@ -19,6 +19,9 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 
 import axios from "axios";
+import styled from "styled-components";
+
+import MainRoute from "./Route";
 
 const drawerWidth = 240;
 
@@ -32,7 +35,8 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: "#006600",
+    // backgroundColor: "#006600",
+    backgroundColor: "white",
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -88,6 +92,10 @@ export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [state, setState] = React.useState({
+    user: [],
+    mail: [],
+  });
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -103,7 +111,10 @@ export default function MiniDrawer() {
   };
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={{ width: "100%", height: "95%", marginTop: "50px" }}
+    >
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -113,7 +124,8 @@ export default function MiniDrawer() {
       >
         <Toolbar>
           <IconButton
-            color="inherit"
+            // color="inherit"
+            color="primary"
             aria-label="Open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -126,7 +138,7 @@ export default function MiniDrawer() {
           <Typography
             variant="h6"
             noWrap
-            style={{ color: "white" }}
+            style={{ color: "black" }}
             onClick={test}
           >
             Gana Mailing
@@ -179,8 +191,11 @@ export default function MiniDrawer() {
           ))}
         </List>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+      <main
+        className={classes.content}
+        // style={{ width: "100%", height: "100%" }}
+      >
+        {/* <div className={classes.toolbar} />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
@@ -209,8 +224,16 @@ export default function MiniDrawer() {
           sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        </Typography> */}
+        <LayoutWrapper>
+          <MainRoute />
+        </LayoutWrapper>
       </main>
     </div>
   );
 }
+
+const LayoutWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
