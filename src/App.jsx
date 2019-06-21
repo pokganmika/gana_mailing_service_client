@@ -18,6 +18,13 @@ const App = () => {
       <Router>
         <Main />
       </Router>
+      {/* {!auth.authenticated ? (
+        <Router>
+          <Main />
+        </Router>
+      ) : (
+          <Login auth={auth} setAuth={setAuth}/>
+      )} */}
     </div>
   );
 };

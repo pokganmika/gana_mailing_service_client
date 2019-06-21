@@ -47,11 +47,13 @@ export default function MaterialTableDemo() {
     //   },
     // ],
   });
-  //
+
+  const target = "http://192.168.0.114";
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("http://192.168.0.114/subscribe");
+      const result = await axios.get(`${target}/subscribe`);
+      // const result = await axios.get("http://192.168.0.114/subscribe");
       // .then(res => console.log(res))
       // .catch(err => console.log(err));
       console.log("fetchData : ", result.data);
@@ -61,9 +63,25 @@ export default function MaterialTableDemo() {
     fetchData();
   }, []);
 
+  const addData = async data => {
+    console.log("UserSetting::addData::check -> ", data);
+    await axios.post(`${target}/subscribe/add`, data);
+  };
+
+  const deleteData = async data => {
+    console.log("UserSetting::deleteData::check -> ", data);
+    await axios.post(`${target}/subscribe/delete`, data);
+  };
+
+  const updateData = async data => {
+    console.log("UserSetting::updateData::check -> ", data);
+    await axios.post(`${target}/subscribe/update`, data);
+  };
+
+  console.log("UserSetting::data:: -> ", state.data);
   return (
     <MaterialTable
-      title="Subscribe Table"
+      title="Subscriber Table"
       columns={state.columns}
       data={state.data}
       editable={{
@@ -73,6 +91,8 @@ export default function MaterialTableDemo() {
               resolve();
               const data = [...state.data];
               data.push(newData);
+              console.log("tableData::addData::check -> ", newData);
+              addData(newData);
               setState({ ...state, data });
             }, 600);
           }),
@@ -82,6 +102,12 @@ export default function MaterialTableDemo() {
               resolve();
               const data = [...state.data];
               data[data.indexOf(oldData)] = newData;
+              console.log(
+                "tableData::updateData::check (newData / oldData) -> ",
+                newData,
+                oldData,
+              );
+              updateData(newData);
               setState({ ...state, data });
             }, 600);
           }),
@@ -91,6 +117,8 @@ export default function MaterialTableDemo() {
               resolve();
               const data = [...state.data];
               data.splice(data.indexOf(oldData), 1);
+              console.log("tableData::deleteData::check -> ", oldData);
+              deleteData({ email: oldData.email });
               setState({ ...state, data });
             }, 600);
           }),

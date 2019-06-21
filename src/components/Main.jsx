@@ -8,6 +8,7 @@ import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -19,6 +20,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 
 import axios from "axios";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import MainRoute from "./Route";
@@ -135,14 +137,23 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            style={{ color: "black" }}
-            onClick={test}
-          >
-            Gana Mailing
-          </Typography>
+
+          <TopBarInnerWrapper>
+            <Link to="/">
+              <Typography
+                variant="h6"
+                noWrap
+                style={{ color: "black" }}
+                onClick={test}
+              >
+                Gana Mail
+              </Typography>
+            </Link>
+            {/* <Button variant="outlined" color="secondary" className={classes.button}> */}
+            <Button variant="outlined" color="secondary">
+              Logout
+            </Button>
+          </TopBarInnerWrapper>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -181,14 +192,19 @@ export default function MiniDrawer() {
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
+          <Link to="/usersetting">
+            <ListItem button key={"Subscriber Setting"}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+
+              {/*TODO: style change ? */}
+              <ListItemText
+                style={{ color: "black" }}
+                primary={"Subscriber Setting"}
+              />
             </ListItem>
-          ))}
+          </Link>
         </List>
       </Drawer>
       <main className={classes.content}>
@@ -229,6 +245,12 @@ export default function MiniDrawer() {
     </div>
   );
 }
+
+const TopBarInnerWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
 
 const LayoutWrapper = styled.div`
   width: 100%;
