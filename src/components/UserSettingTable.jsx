@@ -1,28 +1,65 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import MaterialTable from "material-table";
 
 export default function MaterialTableDemo() {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     columns: [
-      { title: "Name", field: "name" },
-      { title: "Surname", field: "surname" },
-      { title: "Birth Year", field: "birthYear", type: "numeric" },
+      { title: "Email", field: "email" },
+      { title: "Type", field: "type" },
+      { title: "Subscribed", field: "subscribed", type: "boolean" },
       {
-        title: "Birth Place",
-        field: "birthCity",
-        lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
+        title: "Created",
+        field: "created_at",
       },
     ],
     data: [
-      { name: "Mehmet", surname: "Baran", birthYear: 1987, birthCity: 63 },
-      {
-        name: "Zerya Betül",
-        surname: "Baran",
-        birthYear: 2017,
-        birthCity: 34,
-      },
+      // {
+      //   email: "gana@gananetworks.com",
+      //   type: "email",
+      //   subscribed: true,
+      //   created_at: "2019-06-20",
+      // },
+      // {
+      //   email: "ganagana@gmail.com",
+      //   type: "email",
+      //   subscribed: false,
+      //   created_at: "2019-05-05",
+      // },
     ],
+    // columns: [
+    //   { title: "Name", field: "name" },
+    //   { title: "Surname", field: "surname" },
+    //   { title: "Birth Year", field: "birthYear", type: "numeric" },
+    //   {
+    //     title: "Birth Place",
+    //     field: "birthCity",
+    //     lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
+    //   },
+    // ],
+    // data: [
+    //   { name: "Mehmet", surname: "Baran", birthYear: 1987, birthCity: 63 },
+    //   {
+    //     name: "Zerya Betül",
+    //     surname: "Baran",
+    //     birthYear: 2017,
+    //     birthCity: 34,
+    //   },
+    // ],
   });
+  //
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("http://192.168.0.114/subscribe");
+      // .then(res => console.log(res))
+      // .catch(err => console.log(err));
+      console.log("fetchData : ", result.data);
+      console.log("fetchData Arr : ", result.data.Items);
+      setState({ ...state, data: result.data.Items });
+    };
+    fetchData();
+  }, []);
 
   return (
     <MaterialTable
