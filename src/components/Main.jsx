@@ -191,10 +191,7 @@ export default function MiniDrawer() {
           ))}
         </List>
       </Drawer>
-      <main
-        className={classes.content}
-        // style={{ width: "100%", height: "100%" }}
-      >
+      <main className={classes.content}>
         {/* <div className={classes.toolbar} />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
