@@ -18,6 +18,9 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import AccountBox from "@material-ui/icons/AccountBox";
+import CheckBox from "@material-ui/icons/CheckBox";
+import WatchLater from "@material-ui/icons/WatchLater";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -181,21 +184,42 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
+          <Link to="/sendmail">
+            <ListItem button key={"Send Mail"}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <MailIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+
+              <ListItemText style={{ color: "black" }} primary={"Send Mail"} />
             </ListItem>
-          ))}
+          </Link>
+
+          <Link to="/sendlater">
+            <ListItem button key={"Send Later"}>
+              <ListItemIcon>
+                <WatchLater />
+              </ListItemIcon>
+
+              <ListItemText style={{ color: "black" }} primary={"Send Later"} />
+            </ListItem>
+          </Link>
+
+          <Link to="/testmail">
+            <ListItem button key={"Test Mail"}>
+              <ListItemIcon>
+                <CheckBox />
+              </ListItemIcon>
+
+              <ListItemText style={{ color: "black" }} primary={"Test Mail"} />
+            </ListItem>
+          </Link>
         </List>
         <Divider />
         <List>
           <Link to="/usersetting">
             <ListItem button key={"Subscriber Setting"}>
               <ListItemIcon>
-                <InboxIcon />
+                <AccountBox />
               </ListItemIcon>
 
               {/*TODO: style change ? */}

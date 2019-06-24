@@ -10,7 +10,7 @@ import { PageWrapper } from "../styles/PageWrapper";
 const ReservationMail = () => {
   return (
     <ReservationMailPage>
-      <div>ReservationMail Component</div>
+      <div>SendLater Component</div>
       <TextArea
         rows={8}
         id="email"
