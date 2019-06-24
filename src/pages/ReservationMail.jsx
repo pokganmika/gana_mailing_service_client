@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
@@ -7,21 +7,15 @@ const { TextArea } = Input;
 
 import { PageWrapper } from "../styles/PageWrapper";
 
-const SendMail = props => {
-  const [state, setState] = useState({
-    email: "",
-  });
-  console.log("SendMail.jsx -> state.email", state);
+const ReservationMail = () => {
   return (
-    <SendMailPage>
-      <div>SendMail Component</div>
+    <ReservationMailPage>
+      <div>ReservationMail Component</div>
       <TextArea
         rows={8}
         id="email"
         onChange={e => setState({ ...state, [e.target.id]: e.target.value })}
       />
-      {/* <Button type="primary">Send</Button>
-      <Button type="danger">Cancel</Button> */}
       <div className="mail-buttons">
         <Button variant="outlined" color="primary" className="mail-button">
           Send
@@ -30,20 +24,10 @@ const SendMail = props => {
           Cancel
         </Button>
       </div>
-    </SendMailPage>
+    </ReservationMailPage>
   );
 };
 
-const SendMailPage = styled(PageWrapper)`
-  .mail-buttons {
-    margin: 10px;
-    width: 95%;
-    display: flex;
-    justify-content: flex-end;
-    .mail-button {
-      margin: 10px;
-    }
-  }
-`;
+const ReservationMailPage = styled(PageWrapper)``;
 
-export default SendMail;
+export default ReservationMail;
