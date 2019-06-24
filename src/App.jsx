@@ -20,7 +20,7 @@ const App = () => {
     inputId: "",
     inputPw: "",
   });
-  // console.log("[+] NODE_ENV =", process.env.REACT_APP_NODE_ENV);
+  console.log("[+] NODE_ENV =", process.env.NODE_ENV);
   return (
     <div className="App">
       <Router>
