@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styled from "styled-components";
 import MaterialTable from "material-table";
 
 export default function MaterialTableDemo() {
@@ -80,49 +81,57 @@ export default function MaterialTableDemo() {
 
   console.log("UserSetting::data:: -> ", state.data);
   return (
-    <MaterialTable
-      title="Subscriber Table"
-      columns={state.columns}
-      data={state.data}
-      editable={{
-        onRowAdd: newData =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              const data = [...state.data];
-              data.push(newData);
-              console.log("tableData::addData::check -> ", newData);
-              addData(newData);
-              setState({ ...state, data });
-            }, 600);
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              const data = [...state.data];
-              data[data.indexOf(oldData)] = newData;
-              console.log(
-                "tableData::updateData::check (newData / oldData) -> ",
-                newData,
-                oldData,
-              );
-              updateData(newData);
-              setState({ ...state, data });
-            }, 600);
-          }),
-        onRowDelete: oldData =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              const data = [...state.data];
-              data.splice(data.indexOf(oldData), 1);
-              console.log("tableData::deleteData::check -> ", oldData);
-              deleteData({ email: oldData.email });
-              setState({ ...state, data });
-            }, 600);
-          }),
-      }}
-    />
+    <UserSettingWrapper>
+      <MaterialTable
+        title="Subscriber Table"
+        columns={state.columns}
+        data={state.data}
+        editable={{
+          onRowAdd: newData =>
+            new Promise(resolve => {
+              setTimeout(() => {
+                resolve();
+                const data = [...state.data];
+                data.push(newData);
+                console.log("tableData::addData::check -> ", newData);
+                addData(newData);
+                setState({ ...state, data });
+              }, 600);
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise(resolve => {
+              setTimeout(() => {
+                resolve();
+                const data = [...state.data];
+                data[data.indexOf(oldData)] = newData;
+                console.log(
+                  "tableData::updateData::check (newData / oldData) -> ",
+                  newData,
+                  oldData,
+                );
+                updateData(newData);
+                setState({ ...state, data });
+              }, 600);
+            }),
+          onRowDelete: oldData =>
+            new Promise(resolve => {
+              setTimeout(() => {
+                resolve();
+                const data = [...state.data];
+                data.splice(data.indexOf(oldData), 1);
+                console.log("tableData::deleteData::check -> ", oldData);
+                deleteData({ email: oldData.email });
+                setState({ ...state, data });
+              }, 600);
+            }),
+        }}
+      />
+    </UserSettingWrapper>
   );
 }
+
+const UserSettingWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  max-width: 1260px;
+`;

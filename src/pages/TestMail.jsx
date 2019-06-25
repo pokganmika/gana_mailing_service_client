@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
-import { Input } from "antd";
+import { Button as MButton } from "@material-ui/core";
+// antd
+import { Button as AButton, Input, Divider, Select } from "antd";
 const { TextArea } = Input;
+const { Option } = Select;
+const InputGroup = Input.Group;
 
 import { isCorrectEmail } from "../service/validateService";
 import { PageWrapper } from "../styles/PageWrapper";
@@ -19,9 +22,20 @@ const TestMail = () => {
       mainTitle: "",
       detailTitleEng: "",
       textEng: "",
+      textEngOp: "",
       detailTitleKor: "",
       textKor: "",
-      link: [],
+      textKorOp: "",
+      linkEng: {
+        email: [],
+        segment: [],
+        link: [],
+      },
+      linkKor: {
+        email: [],
+        segment: [],
+        link: [],
+      },
     },
     validate: {
       emailValidated: false,
@@ -32,6 +46,15 @@ const TestMail = () => {
       detailTitleKorValidated: false,
       textKorValidated: false,
     },
+  });
+
+  const [temp, setTemp] = useState({
+    selectEng: "",
+    selectKor: "",
+    linkTitleEng: "",
+    linkTitleKor: "",
+    linkUrlEng: "",
+    linkUrlKor: "",
   });
 
   const onSubmit = async state => {
@@ -45,67 +68,72 @@ const TestMail = () => {
   };
 
   console.log("TestMail.jsx -> state : ", state);
-  console.log(
-    "state.validate.textEngValidated : ",
-    state.validate.textEngValidated,
-  );
+
   return (
     <TestMailPage>
-      <h3 style={{ width: "100%" }}>Test Mail</h3>
+      <h2 style={{ width: "100%" }}>Test Mail</h2>
 
-      <Input
-        className="email-input"
-        placeholder="Email Address"
-        id="email"
-        onChange={e =>
-          setState({
-            ...state,
-            field: { ...state.field, [e.target.id]: e.target.value },
-          })
-        }
-        onBlur={() => {
-          !isCorrectEmail(state.field.email)
-            ? setState({
+      <div className="email-top">
+        <div className="email-top-inner" style={{ marginRight: "1em" }}>
+          <Input
+            className="email-input"
+            placeholder="Email Address"
+            id="email"
+            onChange={e =>
+              setState({
                 ...state,
-                validate: { ...state.validate, emailValidated: true },
+                field: { ...state.field, [e.target.id]: e.target.value },
               })
-            : setState({
-                ...state,
-                validate: { ...state.validate, emailValidated: false },
-              });
-        }}
-      />
+            }
+            onBlur={() => {
+              !isCorrectEmail(state.field.email)
+                ? setState({
+                    ...state,
+                    validate: { ...state.validate, emailValidated: true },
+                  })
+                : setState({
+                    ...state,
+                    validate: { ...state.validate, emailValidated: false },
+                  });
+            }}
+          />
 
-      {state.validate.emailValidated && (
-        <div style={{ color: "red" }}>Please enter a valid email</div>
-      )}
+          {state.validate.emailValidated && (
+            <div style={{ color: "red" }}>Please enter a valid email</div>
+          )}
+        </div>
 
-      <Input
-        className="email-input"
-        placeholder="Email Title"
-        id="emailTitle"
-        onChange={e =>
-          setState({
-            ...state,
-            field: { ...state.field, [e.target.id]: e.target.value },
-          })
-        }
-        onBlur={() => {
-          state.field.emailTitle.length === 0
-            ? setState({
+        <div className="email-top-inner" style={{ marginLeft: "1em" }}>
+          <Input
+            className="email-input"
+            placeholder="Email Title"
+            id="emailTitle"
+            onChange={e =>
+              setState({
                 ...state,
-                validate: { ...state.validate, emailTitleValidated: true },
+                field: { ...state.field, [e.target.id]: e.target.value },
               })
-            : setState({
-                ...state,
-                validate: { ...state.validate, emailTitleValidated: false },
-              });
-        }}
-      />
+            }
+            onBlur={() => {
+              state.field.emailTitle.length === 0
+                ? setState({
+                    ...state,
+                    validate: { ...state.validate, emailTitleValidated: true },
+                  })
+                : setState({
+                    ...state,
+                    validate: { ...state.validate, emailTitleValidated: false },
+                  });
+            }}
+          />
 
-      {state.validate.emailTitleValidated && (
-        <div style={{ color: "red" }}>Please enter a email title</div>
-      )}
+          {state.validate.emailTitleValidated && (
+            <div style={{ color: "red" }}>Please enter a email title</div>
+          )}
+        </div>
+      </div>
+
+      <Divider />
 
       <Input
         className="email-input"
@@ -134,118 +162,202 @@ const TestMail = () => {
         <div style={{ color: "red" }}>Please enter a main title</div>
       )}
 
-      <Input
-        className="email-input"
-        placeholder="Detail Title (ENG)"
-        id="detailTitleEng"
-        onChange={e =>
-          setState({
-            ...state,
-            field: { ...state.field, [e.target.id]: e.target.value },
-          })
-        }
-        onBlur={() => {
-          state.field.detailTitleEng.length === 0
-            ? setState({
+      <div className="email-mid">
+        <div className="email-mid-inner" style={{ marginRight: "1em" }}>
+          <Input
+            className="email-input"
+            placeholder="Detail Title (ENG)"
+            id="detailTitleEng"
+            onChange={e =>
+              setState({
                 ...state,
-                validate: { ...state.validate, detailTitleEngValidated: true },
+                field: { ...state.field, [e.target.id]: e.target.value },
               })
-            : setState({
-                ...state,
-                validate: { ...state.validate, detailTitleEngValidated: false },
-              });
-        }}
-      />
+            }
+            onBlur={() => {
+              state.field.detailTitleEng.length === 0
+                ? setState({
+                    ...state,
+                    validate: {
+                      ...state.validate,
+                      detailTitleEngValidated: true,
+                    },
+                  })
+                : setState({
+                    ...state,
+                    validate: {
+                      ...state.validate,
+                      detailTitleEngValidated: false,
+                    },
+                  });
+            }}
+          />
 
-      {state.validate.detailTitleEngValidated && (
-        <div style={{ color: "red" }}>Please enter a detail title (ENG)</div>
-      )}
+          {state.validate.detailTitleEngValidated && (
+            <div style={{ color: "red" }}>
+              Please enter a detail title (ENG)
+            </div>
+          )}
 
-      <TextArea
-        className="email-input"
-        placeholder="Email (ENG)"
-        rows={6}
-        id="textEng"
-        onChange={e =>
-          setState({
-            ...state,
-            field: { ...state.field, [e.target.id]: e.target.value },
-          })
-        }
-        onBlur={() => {
-          state.field.textEng.length === 0
-            ? setState({
+          <TextArea
+            className="email-input"
+            placeholder="Email (ENG)"
+            rows={5}
+            id="textEng"
+            onChange={e =>
+              setState({
                 ...state,
-                validate: { ...state.validate, textEngValidated: true },
+                field: { ...state.field, [e.target.id]: e.target.value },
               })
-            : setState({
-                ...state,
-                validate: { ...state.validate, textEngValidated: false },
-              });
-        }}
-      />
+            }
+            onBlur={() => {
+              state.field.textEng.length === 0
+                ? setState({
+                    ...state,
+                    validate: { ...state.validate, textEngValidated: true },
+                  })
+                : setState({
+                    ...state,
+                    validate: { ...state.validate, textEngValidated: false },
+                  });
+            }}
+          />
 
-      {state.validate.textEngValidated && (
-        <div style={{ color: "red" }}>Please enter your details</div>
-      )}
+          {state.validate.textEngValidated && (
+            <div style={{ color: "red" }}>Please enter your details</div>
+          )}
+        </div>
 
-      <Input
-        className="email-input"
-        placeholder="Detail Title (KOR)"
-        id="detailTitleKor"
-        onChange={e =>
-          setState({
-            ...state,
-            field: { ...state.field, [e.target.id]: e.target.value },
-          })
-        }
-        onBlur={() => {
-          state.field.detailTitleKor.length === 0
-            ? setState({
+        <div className="email-mid-inner" style={{ marginLeft: "1em" }}>
+          <Input
+            className="email-input"
+            placeholder="Detail Title (KOR)"
+            id="detailTitleKor"
+            onChange={e =>
+              setState({
                 ...state,
-                validate: { ...state.validate, detailTitleKorValidated: true },
+                field: { ...state.field, [e.target.id]: e.target.value },
               })
-            : setState({
-                ...state,
-                validate: { ...state.validate, detailTitleKorValidated: false },
-              });
-        }}
-      />
+            }
+            onBlur={() => {
+              state.field.detailTitleKor.length === 0
+                ? setState({
+                    ...state,
+                    validate: {
+                      ...state.validate,
+                      detailTitleKorValidated: true,
+                    },
+                  })
+                : setState({
+                    ...state,
+                    validate: {
+                      ...state.validate,
+                      detailTitleKorValidated: false,
+                    },
+                  });
+            }}
+          />
 
-      {state.validate.detailTitleKorValidated && (
-        <div style={{ color: "red" }}>Please enter a detail title (KOR)</div>
-      )}
+          {state.validate.detailTitleKorValidated && (
+            <div style={{ color: "red" }}>
+              Please enter a detail title (KOR)
+            </div>
+          )}
 
-      <TextArea
-        className="email-input"
-        placeholder="Email (KOR)"
-        rows={6}
-        id="textKor"
-        onChange={e =>
-          setState({
-            ...state,
-            field: { ...state.field, [e.target.id]: e.target.value },
-          })
-        }
-        onBlur={() => {
-          state.field.textKor.length === 0
-            ? setState({
+          <TextArea
+            className="email-input"
+            placeholder="Email (KOR)"
+            rows={5}
+            id="textKor"
+            onChange={e =>
+              setState({
                 ...state,
-                validate: { ...state.validate, textKorValidated: true },
+                field: { ...state.field, [e.target.id]: e.target.value },
               })
-            : setState({
-                ...state,
-                validate: { ...state.validate, textKorValidated: false },
-              });
-        }}
-      />
+            }
+            onBlur={() => {
+              state.field.textKor.length === 0
+                ? setState({
+                    ...state,
+                    validate: { ...state.validate, textKorValidated: true },
+                  })
+                : setState({
+                    ...state,
+                    validate: { ...state.validate, textKorValidated: false },
+                  });
+            }}
+          />
 
-      {state.validate.textKorValidated && (
-        <div style={{ color: "red" }}>Please enter your details (KOR)</div>
-      )}
+          {state.validate.textKorValidated && (
+            <div style={{ color: "red" }}>Please enter your details (KOR)</div>
+          )}
+        </div>
+      </div>
+
+      <Divider />
+
+      <h3 style={{ width: "100%", marginBottom: "1em" }}>Optional</h3>
+
+      <div className="email-bottom">
+        <div className="email-bottom-inner" style={{ marginRight: "1em" }}>
+          <InputGroup compact className="email-input">
+            <div style={{ display: "flex" }}>
+              <Select defaultValue="email">
+                <Option value="email">email</Option>
+                <Option value="segment">segment</Option>
+                <Option value="link">link</Option>
+              </Select>
+              <Input placeholder="Link (ENG)" />
+              <Input placeholder="Link URL (ENG)" />
+              <AButton>Add</AButton>
+            </div>
+          </InputGroup>
+
+          <TextArea
+            className="email-input"
+            placeholder="Email (ENG) - Optional"
+            rows={3}
+            id="textEngOp"
+            onChange={e =>
+              setState({
+                ...state,
+                field: { ...state.field, [e.target.id]: e.target.value },
+              })
+            }
+          />
+        </div>
+
+        <div className="email-bottom-inner" style={{ marginLeft: "1em" }}>
+          <InputGroup compact className="email-input">
+            <div style={{ display: "flex" }}>
+              <Select defaultValue="email">
+                <Option value="email">email</Option>
+                <Option value="segment">segment</Option>
+                <Option value="link">link</Option>
+              </Select>
+              <Input placeholder="Link (KOR)" />
+              <Input placeholder="Link URL (KOR)" />
+              <AButton>Add</AButton>
+            </div>
+          </InputGroup>
+
+          <TextArea
+            className="email-input"
+            placeholder="Email (KOR) - Optional"
+            rows={3}
+            id="textKorOp"
+            onChange={e =>
+              setState({
+                ...state,
+                field: { ...state.field, [e.target.id]: e.target.value },
+              })
+            }
+          />
+        </div>
+      </div>
 
       <div className="mail-buttons">
-        <Button
+        <MButton
           variant="outlined"
           color="primary"
           className="mail-button"
@@ -255,7 +367,7 @@ const TestMail = () => {
           }}
         >
           Send
-        </Button>
+        </MButton>
       </div>
     </TestMailPage>
   );
@@ -263,14 +375,47 @@ const TestMail = () => {
 
 const TestMailPage = styled(PageWrapper)`
   .email-input {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
   }
   .mail-buttons {
     width: 100%;
     margin: 1em;
     display: flex;
     justify-content: flex-end;
+  }
+
+  .email-top {
+    width: 100%;
+    display: flex;
+  }
+  .email-top-inner {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+
+  .email-mid {
+    width: 100%;
+    display: flex;
+  }
+  .email-mid-inner {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+
+  .email-bottom {
+    width: 100%;
+    display: flex;
+  }
+  .email-bottom-inner {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
   }
 `;
 

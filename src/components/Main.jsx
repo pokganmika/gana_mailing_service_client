@@ -17,6 +17,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
+import Home from "@material-ui/icons/Home";
+import Edit from "@material-ui/icons/Edit";
 import MailIcon from "@material-ui/icons/Mail";
 import AccountBox from "@material-ui/icons/AccountBox";
 import CheckBox from "@material-ui/icons/CheckBox";
@@ -183,6 +185,31 @@ export default function MiniDrawer() {
           </IconButton>
         </div>
         <Divider />
+
+        <List>
+          <Link to="/">
+            <ListItem button key={"Home"}>
+              <ListItemIcon>
+                <Home />
+              </ListItemIcon>
+
+              <ListItemText style={{ color: "black" }} primary={"Home"} />
+            </ListItem>
+          </Link>
+
+          <Link to="/about">
+            <ListItem button key={"About"}>
+              <ListItemIcon>
+                <Edit />
+              </ListItemIcon>
+
+              <ListItemText style={{ color: "black" }} primary={"About"} />
+            </ListItem>
+          </Link>
+        </List>
+
+        <Divider />
+
         <List>
           <Link to="/sendmail">
             <ListItem button key={"Send Mail"}>
@@ -214,7 +241,9 @@ export default function MiniDrawer() {
             </ListItem>
           </Link>
         </List>
+
         <Divider />
+
         <List>
           <Link to="/usersetting">
             <ListItem button key={"Subscriber Setting"}>
@@ -232,36 +261,6 @@ export default function MiniDrawer() {
         </List>
       </Drawer>
       <main className={classes.content}>
-        {/* <div className={classes.toolbar} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography> */}
         <LayoutWrapper>
           <MainRoute />
         </LayoutWrapper>
@@ -279,4 +278,7 @@ const TopBarInnerWrapper = styled.div`
 const LayoutWrapper = styled.div`
   width: 100%;
   height: 100%;
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
 `;
