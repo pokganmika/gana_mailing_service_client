@@ -11,51 +11,12 @@ const InputGroup = Input.Group;
 
 import { isCorrectEmail } from "../service/validateService";
 import { PageWrapper } from "../styles/PageWrapper";
+import { TestMailInitState, selector } from "../components/TestMail";
+
+import TestMailTop from "../components/TestMail/TestMailTop";
 
 import config from "../config";
 const { SERVER_URL } = config();
-
-const selector = ["email", "segment", "link"];
-const TestMailInitState = {
-  field: {
-    email: "",
-    emailTitle: "",
-    mainTitle: "",
-    detailTitleEng: "",
-    textEng: "",
-    textEngOp: "",
-    detailTitleKor: "",
-    textKor: "",
-    textKorOp: "",
-    linkEng: {
-      email: [],
-      segment: [],
-      link: [],
-    },
-    linkKor: {
-      email: [],
-      segment: [],
-      link: [],
-    },
-  },
-  validate: {
-    emailValidated: false,
-    emailTitleValidated: false,
-    mainTitleValidated: false,
-    detailTitleEngValidated: false,
-    textEngValidated: false,
-    detailTitleKorValidated: false,
-    textKorValidated: false,
-  },
-  temp: {
-    selectEng: selector[0],
-    selectKor: selector[0],
-    linkTitleEng: "",
-    linkTitleKor: "",
-    linkUrlEng: "",
-    linkUrlKor: "",
-  },
-};
 
 const TestMail = () => {
   const state = useLocalStore(() => TestMailInitState);
@@ -65,9 +26,10 @@ const TestMail = () => {
   const setInputTempChange = e => {
     state.temp[e.target.id] = e.target.value;
   };
-  const blurCheck = () => {
-    state.validate[e.target.id] = !state.validate[e.target.id];
-  };
+  //TODO: blur check!
+  // const blurCheck = () => {
+  //   state.validate[e.target.id] = !state.validate[e.target.id];
+  // };
   const onSubmit = async state => {
     const data = state.field;
     console.log("check this : ", data);
@@ -79,11 +41,17 @@ const TestMail = () => {
   };
 
   console.log("TestMail.jsx -> state : ", JSON.stringify(state));
-  // console.log("TestMail.jsx -> temp : ", temp);
 
   return useObserver(() => (
     <TestMailPage>
       <h2 style={{ width: "100%" }}>Test Mail</h2>
+
+      {/*TODO: for refactoring */}
+      {/* <TestMailTop
+        state={state}
+        setInputFieldChange={setInputFieldChange}
+        isCorrectEmail={isCorrectEmail}
+      /> */}
 
       <div className="email-top">
         <div className="email-top-inner">
@@ -235,7 +203,6 @@ const TestMail = () => {
                 defaultValue={selector[0]}
                 onChange={value => {
                   state.temp.selectEng = value;
-                  // setTemp({ ...temp, selectEng: value });
                 }}
               >
                 {selector.map((sel, i) => (
@@ -249,25 +216,21 @@ const TestMail = () => {
                 id="linkTitleEng"
                 value={state.temp.linkTitleEng}
                 onChange={setInputTempChange}
-                // onChange={e =>
-                //   state.temp.linkTitleEng = e.target.value
-                //   // setTemp({ ...temp, linkTitleEng: e.target.value })
-                // }
               />
               <Input
                 placeholder="Link URL (ENG)"
                 id="linkUrlEng"
                 value={state.temp.linkUrlEng}
                 onChange={setInputTempChange}
-                // onChange={e => setTemp({ ...temp, linkUrlEng: e.target.value })}
               />
               <AButton
                 onClick={e => {
                   e.preventDefault();
-                  state.field.linkEng[state.temp.selectEng].push({
-                    title: state.temp.linkTitleEng,
-                    url: state.temp.linkUrlEng,
-                  });
+                  state.temp.linkUrlEng.length !== 0 &&
+                    state.field.linkEng[state.temp.selectEng].push({
+                      title: state.temp.linkTitleEng,
+                      url: state.temp.linkUrlEng,
+                    });
                   state.temp.linkTitleEng = "";
                   state.temp.linkUrlEng = "";
                 }}
@@ -277,46 +240,72 @@ const TestMail = () => {
             </div>
           </InputGroup>
 
-          {/*TODO: React에서는 object를 render할 수 없다!*/}
           {state.field.linkEng.email.length !== 0 &&
             state.field.linkEng.email.map((eo, i) => (
-              <div value={eo.title} key={i} style={{ display: "flex" }}>
-                <div>Link(ENG): {eo.title} / </div>
-                <div>Link URL(ENG): {eo.url}</div>
+              <div className="link-list" value={eo.title} key={i}>
+                <div className="list-card">email</div>
+                <div>
+                  <div className="link-list-element">Link(ENG): {eo.title}</div>
+                  <div className="link-list-element">
+                    Link URL(ENG): {eo.url}
+                  </div>
+                </div>
                 <AButton
+                  className="link-list-element"
+                  type="danger"
                   onClick={e => {
                     e.preventDefault();
-                    setState({
-                      ...state,
-                      field: {
-                        ...state.field,
-                        linkEng: {
-                          ...state.field.linkEng,
-                          email: [...state.field.linkEng.email].filter(
-                            el => el.title !== eo.title && el.url !== eo.title,
-                          ),
-                          // email: [...state.field.linkEng.email].splice(i, 1),
-                        },
-                      },
-                    });
+                    state.field.linkEng.email.splice(i, 1);
                   }}
                 >
                   Del
                 </AButton>
               </div>
             ))}
+
           {state.field.linkEng.segment.length !== 0 &&
-            state.field.linkEng.segment.map((s, i) => (
-              <div value={s} key={i}>
-                {s}
-                <AButton>Del</AButton>
+            state.field.linkEng.segment.map((eo, i) => (
+              <div className="link-list" value={eo.title} key={i}>
+                <div className="list-card">segment</div>
+                <div>
+                  <div className="link-list-element">Link(ENG): {eo.title}</div>
+                  <div className="link-list-element">
+                    Link URL(ENG): {eo.url}
+                  </div>
+                </div>
+                <AButton
+                  className="link-list-element"
+                  type="danger"
+                  onClick={e => {
+                    e.preventDefault();
+                    state.field.linkEng.segment.splice(i, 1);
+                  }}
+                >
+                  Del
+                </AButton>
               </div>
             ))}
+
           {state.field.linkEng.link.length !== 0 &&
-            state.field.linkEng.link.map((l, i) => (
-              <div value={l} key={i}>
-                {l}
-                <AButton>Del</AButton>
+            state.field.linkEng.link.map((eo, i) => (
+              <div className="link-list" value={eo.title} key={i}>
+                <div className="list-card">link</div>
+                <div>
+                  <div className="link-list-element">Link(ENG): {eo.title}</div>
+                  <div className="link-list-element">
+                    Link URL(ENG): {eo.url}
+                  </div>
+                </div>
+                <AButton
+                  className="link-list-element"
+                  type="danger"
+                  onClick={e => {
+                    e.preventDefault();
+                    state.field.linkEng.link.splice(i, 1);
+                  }}
+                >
+                  Del
+                </AButton>
               </div>
             ))}
 
@@ -337,7 +326,6 @@ const TestMail = () => {
                 defaultValue={selector[0]}
                 onChange={value => {
                   state.temp.selectKor = value;
-                  // setTemp({ ...temp, selectKor: value });
                 }}
               >
                 {selector.map((sel, i) => (
@@ -359,28 +347,92 @@ const TestMail = () => {
                 onChange={setInputTempChange}
               />
               <AButton
-              // onClick={e => {
-              //   e.preventDefault();
-              //   setState({
-              //     ...state,
-              //     field: {
-              //       ...state.field,
-              //       linkKor: {
-              //         ...state.field.linkKor,
-              //         email: [
-              //           ...state.field.linkKor.email,
-              //           { [temp.linkTitleKor]: temp.linkUrlKor },
-              //         ],
-              //       },
-              //     },
-              //   });
-              //   setTemp({ ...temp, linkTitleKor: "", linkUrlKor: "" });
-              // }}
+                onClick={e => {
+                  e.preventDefault();
+                  state.temp.linkUrlKor.length !== 0 &&
+                    state.field.linkKor[state.temp.selectKor].push({
+                      title: state.temp.linkTitleKor,
+                      url: state.temp.linkUrlKor,
+                    });
+                  state.temp.linkTitleKor = "";
+                  state.temp.linkUrlKor = "";
+                }}
               >
                 Add
               </AButton>
             </div>
           </InputGroup>
+
+          {state.field.linkKor.email.length !== 0 &&
+            state.field.linkKor.email.map((eo, i) => (
+              <div className="link-list" value={eo.title} key={i}>
+                <div className="list-card">email</div>
+                <div>
+                  <div className="link-list-element">Link(KOR): {eo.title}</div>
+                  <div className="link-list-element">
+                    Link URL(KOR): {eo.url}
+                  </div>
+                </div>
+                <AButton
+                  className="link-list-element"
+                  type="danger"
+                  onClick={e => {
+                    e.preventDefault();
+                    state.field.linkKor.email.splice(i, 1);
+                  }}
+                >
+                  Del
+                </AButton>
+              </div>
+            ))}
+
+          {state.field.linkKor.segment.length !== 0 &&
+            state.field.linkKor.segment.map((eo, i) => (
+              <div className="link-list" value={eo.title} key={i}>
+                <div className="list-card">segment</div>
+                <div>
+                  <div className="link-list-element">Link(KOR): {eo.title}</div>
+                  <div className="link-list-element">
+                    Link URL(KOR): {eo.url}
+                  </div>
+                </div>
+                <AButton
+                  className="link-list-element"
+                  type="danger"
+                  onClick={e => {
+                    e.preventDefault();
+                    state.field.linkKor.segment.splice(i, 1);
+                  }}
+                >
+                  Del
+                </AButton>
+              </div>
+            ))}
+
+          {state.field.linkKor.link.length !== 0 &&
+            state.field.linkKor.link.map((eo, i) => (
+              <div className="link-list" value={eo.title} key={i}>
+                <div className="list-card">link</div>
+                <div>
+                  <div className="link-list-element">
+                    Link(linkKor): {eo.title}
+                  </div>
+                  <div className="link-list-element">
+                    Link URL(linkKor): {eo.url}
+                  </div>
+                </div>
+                <AButton
+                  className="link-list-element"
+                  type="danger"
+                  onClick={e => {
+                    e.preventDefault();
+                    state.field.linkKor.link.splice(i, 1);
+                  }}
+                >
+                  Del
+                </AButton>
+              </div>
+            ))}
 
           <TextArea
             className="email-input"
@@ -453,6 +505,33 @@ const TestMailPage = styled(PageWrapper)`
     display: flex;
     flex-flow: column;
     align-items: center;
+  }
+
+  .link-list {
+    border-radius: 10px;
+    margin: 0.5em;
+    background-color: white;
+    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    div {
+      width: 100%;
+      font-weight: bold;
+    }
+  }
+  .link-list-element {
+    margin: 1em;
+  }
+  .list-card {
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: #dcdde1;
+    max-width: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
   }
 `;
 
