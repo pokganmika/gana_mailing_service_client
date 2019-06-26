@@ -15,59 +15,50 @@ import { PageWrapper } from "../styles/PageWrapper";
 import config from "../config";
 const { SERVER_URL } = config();
 
-const selector = ["email", "segment", "link"];
-const TestMailInitState = {
-  field: {
-    email: "",
-    emailTitle: "",
-    mainTitle: "",
-    detailTitleEng: "",
-    textEng: "",
-    textEngOp: "",
-    detailTitleKor: "",
-    textKor: "",
-    textKorOp: "",
-    linkEng: {
-      email: [],
-      segment: [],
-      link: [],
+const TestMail = () => {
+  const [state, setState] = useState({
+    field: {
+      email: "",
+      emailTitle: "",
+      mainTitle: "",
+      detailTitleEng: "",
+      textEng: "",
+      textEngOp: "",
+      detailTitleKor: "",
+      textKor: "",
+      textKorOp: "",
+      linkEng: {
+        email: [],
+        segment: [],
+        link: [],
+      },
+      linkKor: {
+        email: [],
+        segment: [],
+        link: [],
+      },
     },
-    linkKor: {
-      email: [],
-      segment: [],
-      link: [],
+    validate: {
+      emailValidated: false,
+      emailTitleValidated: false,
+      mainTitleValidated: false,
+      detailTitleEngValidated: false,
+      textEngValidated: false,
+      detailTitleKorValidated: false,
+      textKorValidated: false,
     },
-  },
-  validate: {
-    emailValidated: false,
-    emailTitleValidated: false,
-    mainTitleValidated: false,
-    detailTitleEngValidated: false,
-    textEngValidated: false,
-    detailTitleKorValidated: false,
-    textKorValidated: false,
-  },
-  temp: {
+  });
+
+  const selector = ["email", "segment", "link"];
+  const [temp, setTemp] = useState({
     selectEng: selector[0],
     selectKor: selector[0],
     linkTitleEng: "",
     linkTitleKor: "",
     linkUrlEng: "",
     linkUrlKor: "",
-  },
-};
+  });
 
-const TestMail = () => {
-  const state = useLocalStore(() => TestMailInitState);
-  const setInputFieldChange = e => {
-    state.field[e.target.id] = e.target.value;
-  };
-  const setInputTempChange = e => {
-    state.temp[e.target.id] = e.target.value;
-  };
-  const blurCheck = () => {
-    state.validate[e.target.id] = !state.validate[e.target.id];
-  };
   const onSubmit = async state => {
     const data = state.field;
     console.log("check this : ", data);
@@ -78,25 +69,35 @@ const TestMail = () => {
     // .post(`${SERVER_URL}/sendmail/test`, data)
   };
 
-  console.log("TestMail.jsx -> state : ", JSON.stringify(state));
-  // console.log("TestMail.jsx -> temp : ", temp);
+  console.log("TestMail.jsx -> state : ", state);
+  console.log("TestMail.jsx -> temp : ", temp);
 
-  return useObserver(() => (
+  return (
     <TestMailPage>
       <h2 style={{ width: "100%" }}>Test Mail</h2>
 
       <div className="email-top">
-        <div className="email-top-inner">
+        <div className="email-top-inner" style={{ marginRight: "1em" }}>
           <Input
             className="email-input"
-            id="email"
-            value={state.field.email}
             placeholder="Email Address"
-            onChange={setInputFieldChange}
+            id="email"
+            onChange={e =>
+              setState({
+                ...state,
+                field: { ...state.field, [e.target.id]: e.target.value },
+              })
+            }
             onBlur={() => {
               !isCorrectEmail(state.field.email)
-                ? (state.validate.emailValidated = true)
-                : (state.validate.emailValidated = false);
+                ? setState({
+                    ...state,
+                    validate: { ...state.validate, emailValidated: true },
+                  })
+                : setState({
+                    ...state,
+                    validate: { ...state.validate, emailValidated: false },
+                  });
             }}
           />
 
@@ -110,12 +111,22 @@ const TestMail = () => {
             className="email-input"
             placeholder="Email Title"
             id="emailTitle"
-            value={state.field.emailTitle}
-            onChange={setInputFieldChange}
+            onChange={e =>
+              setState({
+                ...state,
+                field: { ...state.field, [e.target.id]: e.target.value },
+              })
+            }
             onBlur={() => {
               state.field.emailTitle.length === 0
-                ? (state.validate.emailTitleValidated = true)
-                : (state.validate.emailTitleValidated = false);
+                ? setState({
+                    ...state,
+                    validate: { ...state.validate, emailTitleValidated: true },
+                  })
+                : setState({
+                    ...state,
+                    validate: { ...state.validate, emailTitleValidated: false },
+                  });
             }}
           />
 
@@ -131,12 +142,22 @@ const TestMail = () => {
         className="email-input"
         placeholder="Main Title"
         id="mainTitle"
-        value={state.field.mainTitle}
-        onChange={setInputFieldChange}
+        onChange={e =>
+          setState({
+            ...state,
+            field: { ...state.field, [e.target.id]: e.target.value },
+          })
+        }
         onBlur={() => {
           state.field.mainTitle.length === 0
-            ? (state.validate.mainTitleValidated = true)
-            : (state.validate.mainTitleValidated = false);
+            ? setState({
+                ...state,
+                validate: { ...state.validate, mainTitleValidated: true },
+              })
+            : setState({
+                ...state,
+                validate: { ...state.validate, mainTitleValidated: false },
+              });
         }}
       />
 
@@ -150,12 +171,28 @@ const TestMail = () => {
             className="email-input"
             placeholder="Detail Title (ENG)"
             id="detailTitleEng"
-            value={state.field.detailTitleEng}
-            onChange={setInputFieldChange}
+            onChange={e =>
+              setState({
+                ...state,
+                field: { ...state.field, [e.target.id]: e.target.value },
+              })
+            }
             onBlur={() => {
               state.field.detailTitleEng.length === 0
-                ? (state.validate.detailTitleEngValidated = true)
-                : (state.validate.detailTitleEngValidated = false);
+                ? setState({
+                    ...state,
+                    validate: {
+                      ...state.validate,
+                      detailTitleEngValidated: true,
+                    },
+                  })
+                : setState({
+                    ...state,
+                    validate: {
+                      ...state.validate,
+                      detailTitleEngValidated: false,
+                    },
+                  });
             }}
           />
 
@@ -170,12 +207,22 @@ const TestMail = () => {
             placeholder="Email (ENG)"
             rows={5}
             id="textEng"
-            value={state.field.textEng}
-            onChange={setInputFieldChange}
+            onChange={e =>
+              setState({
+                ...state,
+                field: { ...state.field, [e.target.id]: e.target.value },
+              })
+            }
             onBlur={() => {
               state.field.textEng.length === 0
-                ? (state.validate.textEngValidated = true)
-                : (state.validate.textEngValidated = false);
+                ? setState({
+                    ...state,
+                    validate: { ...state.validate, textEngValidated: true },
+                  })
+                : setState({
+                    ...state,
+                    validate: { ...state.validate, textEngValidated: false },
+                  });
             }}
           />
 
@@ -189,12 +236,28 @@ const TestMail = () => {
             className="email-input"
             placeholder="Detail Title (KOR)"
             id="detailTitleKor"
-            value={state.field.detailTitleKor}
-            onChange={setInputFieldChange}
+            onChange={e =>
+              setState({
+                ...state,
+                field: { ...state.field, [e.target.id]: e.target.value },
+              })
+            }
             onBlur={() => {
               state.field.detailTitleKor.length === 0
-                ? (state.validate.detailTitleKorValidated = true)
-                : (state.validate.detailTitleKorValidated = false);
+                ? setState({
+                    ...state,
+                    validate: {
+                      ...state.validate,
+                      detailTitleKorValidated: true,
+                    },
+                  })
+                : setState({
+                    ...state,
+                    validate: {
+                      ...state.validate,
+                      detailTitleKorValidated: false,
+                    },
+                  });
             }}
           />
 
@@ -209,11 +272,22 @@ const TestMail = () => {
             placeholder="Email (KOR)"
             rows={5}
             id="textKor"
-            onChange={setInputFieldChange}
+            onChange={e =>
+              setState({
+                ...state,
+                field: { ...state.field, [e.target.id]: e.target.value },
+              })
+            }
             onBlur={() => {
               state.field.textKor.length === 0
-                ? (state.validate.textKorValidated = true)
-                : (state.validate.textKorValidated = false);
+                ? setState({
+                    ...state,
+                    validate: { ...state.validate, textKorValidated: true },
+                  })
+                : setState({
+                    ...state,
+                    validate: { ...state.validate, textKorValidated: false },
+                  });
             }}
           />
 
@@ -234,8 +308,7 @@ const TestMail = () => {
               <Select
                 defaultValue={selector[0]}
                 onChange={value => {
-                  state.temp.selectEng = value;
-                  // setTemp({ ...temp, selectEng: value });
+                  setTemp({ ...temp, selectEng: value });
                 }}
               >
                 {selector.map((sel, i) => (
@@ -246,30 +319,34 @@ const TestMail = () => {
               </Select>
               <Input
                 placeholder="Link (ENG)"
-                id="linkTitleEng"
-                value={state.temp.linkTitleEng}
-                onChange={setInputTempChange}
-                // onChange={e =>
-                //   state.temp.linkTitleEng = e.target.value
-                //   // setTemp({ ...temp, linkTitleEng: e.target.value })
-                // }
+                value={temp.linkTitleEng}
+                onChange={e =>
+                  setTemp({ ...temp, linkTitleEng: e.target.value })
+                }
               />
               <Input
                 placeholder="Link URL (ENG)"
-                id="linkUrlEng"
-                value={state.temp.linkUrlEng}
-                onChange={setInputTempChange}
-                // onChange={e => setTemp({ ...temp, linkUrlEng: e.target.value })}
+                value={temp.linkUrlEng}
+                onChange={e => setTemp({ ...temp, linkUrlEng: e.target.value })}
               />
               <AButton
                 onClick={e => {
                   e.preventDefault();
-                  state.field.linkEng[state.temp.selectEng].push({
-                    title: state.temp.linkTitleEng,
-                    url: state.temp.linkUrlEng,
+                  setState({
+                    ...state,
+                    field: {
+                      ...state.field,
+                      linkEng: {
+                        ...state.field.linkEng,
+                        [temp.selectEng]: [
+                          ...state.field.linkEng.email,
+                          // { [temp.linkTitleEng]: temp.linkUrlEng },
+                          { title: temp.linkTitleEng, url: temp.linkUrlEng },
+                        ],
+                      },
+                    },
                   });
-                  state.temp.linkTitleEng = "";
-                  state.temp.linkUrlEng = "";
+                  setTemp({ ...temp, linkTitleEng: "", linkUrlEng: "" });
                 }}
               >
                 Add
@@ -325,8 +402,12 @@ const TestMail = () => {
             placeholder="Email (ENG) - Optional"
             rows={3}
             id="textEngOp"
-            value={state.field.textEngOp}
-            onChange={setInputFieldChange}
+            onChange={e =>
+              setState({
+                ...state,
+                field: { ...state.field, [e.target.id]: e.target.value },
+              })
+            }
           />
         </div>
 
@@ -336,8 +417,7 @@ const TestMail = () => {
               <Select
                 defaultValue={selector[0]}
                 onChange={value => {
-                  state.temp.selectKor = value;
-                  // setTemp({ ...temp, selectKor: value });
+                  setTemp({ ...temp, selectKor: value });
                 }}
               >
                 {selector.map((sel, i) => (
@@ -348,34 +428,34 @@ const TestMail = () => {
               </Select>
               <Input
                 placeholder="Link (KOR)"
-                id="linkTitleKor"
-                value={state.temp.linkTitleKor}
-                onChange={setInputTempChange}
+                value={temp.linkTitleKor}
+                onChange={e =>
+                  setTemp({ ...temp, linkTitleKor: e.target.value })
+                }
               />
               <Input
                 placeholder="Link URL (KOR)"
-                id="linkUrlKor"
-                value={state.temp.linkUrlKor}
-                onChange={setInputTempChange}
+                value={temp.linkUrlKor}
+                onChange={e => setTemp({ ...temp, linkUrlKor: e.target.value })}
               />
               <AButton
-              // onClick={e => {
-              //   e.preventDefault();
-              //   setState({
-              //     ...state,
-              //     field: {
-              //       ...state.field,
-              //       linkKor: {
-              //         ...state.field.linkKor,
-              //         email: [
-              //           ...state.field.linkKor.email,
-              //           { [temp.linkTitleKor]: temp.linkUrlKor },
-              //         ],
-              //       },
-              //     },
-              //   });
-              //   setTemp({ ...temp, linkTitleKor: "", linkUrlKor: "" });
-              // }}
+                onClick={e => {
+                  e.preventDefault();
+                  setState({
+                    ...state,
+                    field: {
+                      ...state.field,
+                      linkKor: {
+                        ...state.field.linkKor,
+                        email: [
+                          ...state.field.linkKor.email,
+                          { [temp.linkTitleKor]: temp.linkUrlKor },
+                        ],
+                      },
+                    },
+                  });
+                  setTemp({ ...temp, linkTitleKor: "", linkUrlKor: "" });
+                }}
               >
                 Add
               </AButton>
@@ -387,8 +467,12 @@ const TestMail = () => {
             placeholder="Email (KOR) - Optional"
             rows={3}
             id="textKorOp"
-            value={state.field.textKorOp}
-            onChange={setInputFieldChange}
+            onChange={e =>
+              setState({
+                ...state,
+                field: { ...state.field, [e.target.id]: e.target.value },
+              })
+            }
           />
         </div>
       </div>
@@ -407,7 +491,7 @@ const TestMail = () => {
         </MButton>
       </div>
     </TestMailPage>
-  ));
+  );
 };
 
 const TestMailPage = styled(PageWrapper)`
