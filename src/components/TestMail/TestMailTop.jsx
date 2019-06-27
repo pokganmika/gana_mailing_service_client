@@ -3,7 +3,6 @@ import { Input } from "antd";
 import { useLocalStore, useObserver } from "mobx-react-lite";
 
 const TestMailTop = ({ state, setInputFieldChange, isCorrectEmail }) => {
-  // console.log("TestMailTop::props::check:: -> : ", props);
   return useObserver(() => (
     <div className="email-top">
       <div className="email-top-inner">

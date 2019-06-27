@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { toJS } from "mobx";
 import { useLocalStore, useObserver } from "mobx-react-lite";
 import { Button as MButton } from "@material-ui/core";
 // antd
@@ -12,8 +13,9 @@ const InputGroup = Input.Group;
 import { isCorrectEmail } from "../service/validateService";
 import { PageWrapper } from "../styles/PageWrapper";
 import { TestMailInitState, selector } from "../components/TestMail";
-
-import TestMailTop from "../components/TestMail/TestMailTop";
+// import TestMailTop from "../components/TestMail/TestMailTop";
+// import TestMailMid from "../components/TestMail/TestMailMid";
+// import TestMailBottom from "../components/TestMail/TestMailBottom";
 
 import config from "../config";
 const { SERVER_URL } = config();
@@ -32,7 +34,7 @@ const TestMail = () => {
   // };
   const onSubmit = async state => {
     const data = state.field;
-    console.log("check this : ", data);
+    console.log("check::this::-second::check-:: -----> : ", toJS(data));
     await axios
       .post(`http://192.168.0.114/sendmail/test`, data)
       .then(res => console.log("res : ", res))
@@ -40,13 +42,13 @@ const TestMail = () => {
     // .post(`${SERVER_URL}/sendmail/test`, data)
   };
 
-  console.log("TestMail.jsx -> state : ", JSON.stringify(state));
+  // console.log("TestMail.jsx -> state : ", JSON.stringify(state));
+  console.log("TestMail.jsx -> state : ", toJS(state));
 
   return useObserver(() => (
     <TestMailPage>
       <h2 style={{ width: "100%" }}>Test Mail</h2>
 
-      {/*TODO: for refactoring */}
       {/* <TestMailTop
         state={state}
         setInputFieldChange={setInputFieldChange}
@@ -212,7 +214,7 @@ const TestMail = () => {
                 ))}
               </Select>
               <Input
-                placeholder="Link (ENG)"
+                placeholder="Link Title (ENG)"
                 id="linkTitleEng"
                 value={state.temp.linkTitleEng}
                 onChange={setInputTempChange}
@@ -240,74 +242,7 @@ const TestMail = () => {
             </div>
           </InputGroup>
 
-          {state.field.linkEng.email.length !== 0 &&
-            state.field.linkEng.email.map((eo, i) => (
-              <div className="link-list" value={eo.title} key={i}>
-                <div className="list-card">email</div>
-                <div>
-                  <div className="link-list-element">Link(ENG): {eo.title}</div>
-                  <div className="link-list-element">
-                    Link URL(ENG): {eo.url}
-                  </div>
-                </div>
-                <AButton
-                  className="link-list-element"
-                  type="danger"
-                  onClick={e => {
-                    e.preventDefault();
-                    state.field.linkEng.email.splice(i, 1);
-                  }}
-                >
-                  Del
-                </AButton>
-              </div>
-            ))}
-
-          {state.field.linkEng.segment.length !== 0 &&
-            state.field.linkEng.segment.map((eo, i) => (
-              <div className="link-list" value={eo.title} key={i}>
-                <div className="list-card">segment</div>
-                <div>
-                  <div className="link-list-element">Link(ENG): {eo.title}</div>
-                  <div className="link-list-element">
-                    Link URL(ENG): {eo.url}
-                  </div>
-                </div>
-                <AButton
-                  className="link-list-element"
-                  type="danger"
-                  onClick={e => {
-                    e.preventDefault();
-                    state.field.linkEng.segment.splice(i, 1);
-                  }}
-                >
-                  Del
-                </AButton>
-              </div>
-            ))}
-
-          {state.field.linkEng.link.length !== 0 &&
-            state.field.linkEng.link.map((eo, i) => (
-              <div className="link-list" value={eo.title} key={i}>
-                <div className="list-card">link</div>
-                <div>
-                  <div className="link-list-element">Link(ENG): {eo.title}</div>
-                  <div className="link-list-element">
-                    Link URL(ENG): {eo.url}
-                  </div>
-                </div>
-                <AButton
-                  className="link-list-element"
-                  type="danger"
-                  onClick={e => {
-                    e.preventDefault();
-                    state.field.linkEng.link.splice(i, 1);
-                  }}
-                >
-                  Del
-                </AButton>
-              </div>
-            ))}
+          {/* ***** */}
 
           <TextArea
             className="email-input"
@@ -335,7 +270,7 @@ const TestMail = () => {
                 ))}
               </Select>
               <Input
-                placeholder="Link (KOR)"
+                placeholder="Link Title (KOR)"
                 id="linkTitleKor"
                 value={state.temp.linkTitleKor}
                 onChange={setInputTempChange}
@@ -363,76 +298,7 @@ const TestMail = () => {
             </div>
           </InputGroup>
 
-          {state.field.linkKor.email.length !== 0 &&
-            state.field.linkKor.email.map((eo, i) => (
-              <div className="link-list" value={eo.title} key={i}>
-                <div className="list-card">email</div>
-                <div>
-                  <div className="link-list-element">Link(KOR): {eo.title}</div>
-                  <div className="link-list-element">
-                    Link URL(KOR): {eo.url}
-                  </div>
-                </div>
-                <AButton
-                  className="link-list-element"
-                  type="danger"
-                  onClick={e => {
-                    e.preventDefault();
-                    state.field.linkKor.email.splice(i, 1);
-                  }}
-                >
-                  Del
-                </AButton>
-              </div>
-            ))}
-
-          {state.field.linkKor.segment.length !== 0 &&
-            state.field.linkKor.segment.map((eo, i) => (
-              <div className="link-list" value={eo.title} key={i}>
-                <div className="list-card">segment</div>
-                <div>
-                  <div className="link-list-element">Link(KOR): {eo.title}</div>
-                  <div className="link-list-element">
-                    Link URL(KOR): {eo.url}
-                  </div>
-                </div>
-                <AButton
-                  className="link-list-element"
-                  type="danger"
-                  onClick={e => {
-                    e.preventDefault();
-                    state.field.linkKor.segment.splice(i, 1);
-                  }}
-                >
-                  Del
-                </AButton>
-              </div>
-            ))}
-
-          {state.field.linkKor.link.length !== 0 &&
-            state.field.linkKor.link.map((eo, i) => (
-              <div className="link-list" value={eo.title} key={i}>
-                <div className="list-card">link</div>
-                <div>
-                  <div className="link-list-element">
-                    Link(linkKor): {eo.title}
-                  </div>
-                  <div className="link-list-element">
-                    Link URL(linkKor): {eo.url}
-                  </div>
-                </div>
-                <AButton
-                  className="link-list-element"
-                  type="danger"
-                  onClick={e => {
-                    e.preventDefault();
-                    state.field.linkKor.link.splice(i, 1);
-                  }}
-                >
-                  Del
-                </AButton>
-              </div>
-            ))}
+          {/* ***** */}
 
           <TextArea
             className="email-input"
