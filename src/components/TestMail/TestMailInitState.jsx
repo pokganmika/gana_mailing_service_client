@@ -1,4 +1,3 @@
-// export const selector = ["email", "segment", "link"];
 export const selector = ["segment", "link"];
 
 export const TestMailInitState = {
@@ -13,30 +12,14 @@ export const TestMailInitState = {
     textKor: "",
     textKorOp: "",
     infoMail: true,
-    link: {
-      linkETitle: "",
-      linkEUrl: "",
-      linkKTitle: "",
-      linkKUrl: "",
-      fSegETitle: "",
-      fSegEUrl: "",
-      sSegETitle: "",
-      sSegEUrl: "",
-      fSegKTitle: "",
-      fSegKUrl: "",
-      sSegKTitle: "",
-      sSegKUrl: "",
+    linkEng: {
+      segment: [],
+      link: [],
     },
-    // linkEng: {
-    //   email: [],
-    //   segment: [],
-    //   link: [],
-    // },
-    // linkKor: {
-    //   email: [],
-    //   segment: [],
-    //   link: [],
-    // },
+    linkKor: {
+      segment: [],
+      link: [],
+    },
   },
   validate: {
     emailValidated: false,

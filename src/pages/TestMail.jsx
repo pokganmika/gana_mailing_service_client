@@ -280,7 +280,55 @@ const TestMail = () => {
             </div>
           </InputGroup>
 
-          {/* ***** */}
+          {state.field.linkEng.segment.length !== 0 &&
+            state.field.linkEng.segment.map((el, i) => (
+              <div className="link-list" value={el.title} key={i}>
+                <div className="list-card">SEGMENT</div>
+                <div>
+                  <div className="link-list-element">
+                    Link Title(ENG) : {el.title}
+                  </div>
+                  <div className="link-list-element">
+                    Link URL(ENG) : {el.url}
+                  </div>
+                </div>
+                <AButton
+                  className="link-list-element"
+                  type="danger"
+                  onClick={e => {
+                    e.preventDefault();
+                    state.field.linkEng.segment.splice(i, 1);
+                  }}
+                >
+                  Del
+                </AButton>
+              </div>
+            ))}
+
+          {state.field.linkEng.link.length !== 0 &&
+            state.field.linkEng.link.map((el, i) => (
+              <div className="link-list" value={el.title} key={i}>
+                <div className="list-card">LINK</div>
+                <div>
+                  <div className="link-list-element">
+                    Link Title(ENG) : {el.title}
+                  </div>
+                  <div className="link-list-element">
+                    Link URL(ENG) : {el.url}
+                  </div>
+                </div>
+                <AButton
+                  className="link-list-element"
+                  type="danger"
+                  onClick={e => {
+                    e.preventDefault();
+                    state.field.linkEng.link.splice(i, 1);
+                  }}
+                >
+                  Del
+                </AButton>
+              </div>
+            ))}
 
           <TextArea
             className="email-input"
@@ -336,7 +384,55 @@ const TestMail = () => {
             </div>
           </InputGroup>
 
-          {/* ***** */}
+          {state.field.linkKor.segment.length !== 0 &&
+            state.field.linkKor.segment.map((el, i) => (
+              <div className="link-list" value={el.title} key={i}>
+                <div className="list-card">SEGMENT</div>
+                <div>
+                  <div className="link-list-element">
+                    Link Title(KOR) : {el.title}
+                  </div>
+                  <div className="link-list-element">
+                    Link URL(KOR) : {el.url}
+                  </div>
+                </div>
+                <AButton
+                  className="link-list-element"
+                  type="danger"
+                  onClick={e => {
+                    e.preventDefault();
+                    state.field.linkKor.segment.splice(i, 1);
+                  }}
+                >
+                  Del
+                </AButton>
+              </div>
+            ))}
+
+          {state.field.linkKor.link.length !== 0 &&
+            state.field.linkKor.link.map((el, i) => (
+              <div className="link-list" value={el.title} key={i}>
+                <div className="list-card">LINK</div>
+                <div>
+                  <div className="link-list-element">
+                    Link Title(KOR) : {el.title}
+                  </div>
+                  <div className="link-list-element">
+                    Link URL(KOR) : {el.url}
+                  </div>
+                </div>
+                <AButton
+                  className="link-list-element"
+                  type="danger"
+                  onClick={e => {
+                    e.preventDefault();
+                    state.field.linkKor.link.splice(i, 1);
+                  }}
+                >
+                  Del
+                </AButton>
+              </div>
+            ))}
 
           <TextArea
             className="email-input"
@@ -414,8 +510,8 @@ const TestMailPage = styled(PageWrapper)`
   .link-list {
     border-radius: 10px;
     margin: 0.5em;
-    background-color: white;
-    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.3);
+    background-color: #f1f2f6;
+    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.2);
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -430,7 +526,7 @@ const TestMailPage = styled(PageWrapper)`
   .list-card {
     font-weight: bold;
     border-radius: 10px;
-    background-color: #dcdde1;
+    background-color: #dfe4ea;
     max-width: 75px;
     display: flex;
     justify-content: center;
