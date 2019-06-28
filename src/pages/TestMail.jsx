@@ -5,7 +5,7 @@ import { toJS } from "mobx";
 import { useLocalStore, useObserver } from "mobx-react-lite";
 import { Button as MButton } from "@material-ui/core";
 // antd
-import { Button as AButton, Input, Divider, Select } from "antd";
+import { Button as AButton, Input, Divider, Select, Switch } from "antd";
 const { TextArea } = Input;
 const { Option } = Select;
 const InputGroup = Input.Group;
@@ -195,7 +195,45 @@ const TestMail = () => {
 
       <Divider />
 
-      <h3 style={{ width: "100%", marginBottom: "1em" }}>Optional</h3>
+      <div
+        style={{
+          width: "100%",
+          marginBottom: "1em",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <h3>Optional</h3>
+
+        <div
+          style={{
+            display: "flex",
+            padding: "0.7em",
+            backgroundColor: "#f1f2f6",
+            borderRadius: "10px",
+            boxShadow: "0 0 20px -3px rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          <span style={{ marginRight: "0.5em" }}>info mail link : </span>
+          {state.field.infoMail ? (
+            <span
+              style={{ color: "blue", fontWeight: "bold", marginRight: "1em" }}
+            >
+              ON
+            </span>
+          ) : (
+            <span
+              style={{ color: "red", fontWeight: "bold", marginRight: "1em" }}
+            >
+              OFF
+            </span>
+          )}
+          <Switch
+            defaultChecked
+            onChange={checked => (state.field.infoMail = checked)}
+          />
+        </div>
+      </div>
 
       <div className="email-bottom">
         <div className="email-bottom-inner" style={{ marginRight: "1em" }}>

@@ -12,6 +12,7 @@ export const TestMailInitState = {
     detailTitleKor: "",
     textKor: "",
     textKorOp: "",
+    infoMail: true,
     link: {
       linkETitle: "",
       linkEUrl: "",

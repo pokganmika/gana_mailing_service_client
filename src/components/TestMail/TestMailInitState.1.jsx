@@ -12,16 +12,16 @@ export const TestMailInitState = {
     detailTitleKor: "",
     textKor: "",
     textKorOp: "",
-    // linkEng: {
-    //   email: [],
-    //   segment: [],
-    //   link: [],
-    // },
-    // linkKor: {
-    //   email: [],
-    //   segment: [],
-    //   link: [],
-    // },
+    linkEng: {
+      email: true,
+      segment: [],
+      link: [],
+    },
+    linkKor: {
+      email: true,
+      segment: [],
+      link: [],
+    },
   },
   validate: {
     emailValidated: false,
