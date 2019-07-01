@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import moment from "moment";
 import MaterialTable from "material-table";
 
 export default function MaterialTableDemo() {
@@ -66,7 +67,22 @@ export default function MaterialTableDemo() {
 
   const addData = async data => {
     console.log("UserSetting::addData::check -> ", data);
-    await axios.post(`${target}/subscribe/add`, data);
+    if (!data.email) {
+    } else {
+      if (!data.type || !data.created_at) {
+        if (!data.type) {
+          data.type = "email";
+        }
+        if (!data.created_at) {
+          data.created_at = moment()
+            .format()
+            .slice(0, 10);
+        }
+        await axios.post(`${target}/subscribe/add`, data);
+      } else {
+        await axios.post(`${target}/subscribe/add`, data);
+      }
+    }
   };
 
   const deleteData = async data => {

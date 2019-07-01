@@ -197,13 +197,13 @@ export default function MiniDrawer() {
             </ListItem>
           </Link>
 
-          <Link to="/about">
-            <ListItem button key={"About"}>
+          <Link to="/activitylog">
+            <ListItem button key={"Activity Log"}>
               <ListItemIcon>
                 <Edit />
               </ListItemIcon>
 
-              <ListItemText style={{ color: "black" }} primary={"About"} />
+              <ListItemText style={{ color: "black" }} primary={"Activity Log"} />
             </ListItem>
           </Link>
         </List>
