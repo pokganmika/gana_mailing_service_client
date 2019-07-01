@@ -1,8 +1,10 @@
 import React from "react";
+import { toJS } from "mobx";
+import { useObserver } from "mobx-react-lite";
 import { Input } from "antd";
-import { useLocalStore, useObserver } from "mobx-react-lite";
 
 const TestMailTop = ({ state, setInputFieldChange, isCorrectEmail }) => {
+  console.log("::top::component::state:: ---> ", toJS(state));
   return useObserver(() => (
     <div className="email-top">
       <div className="email-top-inner">

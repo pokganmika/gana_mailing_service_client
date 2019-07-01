@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { toJS } from "mobx";
@@ -12,7 +12,13 @@ const InputGroup = Input.Group;
 
 import { isCorrectEmail } from "../service/validateService";
 import { PageWrapper } from "../styles/PageWrapper";
-import { TestMailInitState, selector } from "../components/TestMail";
+import {
+  TestMailInitState,
+  selector,
+  TestMailTop,
+  TestMailMid,
+  TestMailBottom,
+} from "../components/TestMail";
 // import TestMailTop from "../components/TestMail/TestMailTop";
 // import TestMailMid from "../components/TestMail/TestMailMid";
 // import TestMailBottom from "../components/TestMail/TestMailBottom";
@@ -49,401 +55,24 @@ const TestMail = () => {
     <TestMailPage>
       <h2 style={{ width: "100%" }}>Test Mail</h2>
 
-      {/* <TestMailTop
+      <TestMailTop
         state={state}
         setInputFieldChange={setInputFieldChange}
         isCorrectEmail={isCorrectEmail}
-      /> */}
-
-      <div className="email-top">
-        <div className="email-top-inner">
-          <Input
-            className="email-input"
-            id="email"
-            value={state.field.email}
-            placeholder="Email Address"
-            onChange={setInputFieldChange}
-            onBlur={() => {
-              !isCorrectEmail(state.field.email)
-                ? (state.validate.emailValidated = true)
-                : (state.validate.emailValidated = false);
-            }}
-          />
-
-          {state.validate.emailValidated && (
-            <div style={{ color: "red" }}>Please enter a valid email</div>
-          )}
-        </div>
-
-        <div className="email-top-inner" style={{ marginLeft: "1em" }}>
-          <Input
-            className="email-input"
-            placeholder="Email Title"
-            id="emailTitle"
-            value={state.field.emailTitle}
-            onChange={setInputFieldChange}
-            onBlur={() => {
-              state.field.emailTitle.length === 0
-                ? (state.validate.emailTitleValidated = true)
-                : (state.validate.emailTitleValidated = false);
-            }}
-          />
-
-          {state.validate.emailTitleValidated && (
-            <div style={{ color: "red" }}>Please enter a email title</div>
-          )}
-        </div>
-      </div>
-
-      <Divider />
-
-      <Input
-        className="email-input"
-        placeholder="Main Title"
-        id="mainTitle"
-        value={state.field.mainTitle}
-        onChange={setInputFieldChange}
-        onBlur={() => {
-          state.field.mainTitle.length === 0
-            ? (state.validate.mainTitleValidated = true)
-            : (state.validate.mainTitleValidated = false);
-        }}
       />
 
-      {state.validate.mainTitleValidated && (
-        <div style={{ color: "red" }}>Please enter a main title</div>
-      )}
+      <Divider />
 
-      <div className="email-mid">
-        <div className="email-mid-inner" style={{ marginRight: "1em" }}>
-          <Input
-            className="email-input"
-            placeholder="Detail Title (ENG)"
-            id="detailTitleEng"
-            value={state.field.detailTitleEng}
-            onChange={setInputFieldChange}
-            onBlur={() => {
-              state.field.detailTitleEng.length === 0
-                ? (state.validate.detailTitleEngValidated = true)
-                : (state.validate.detailTitleEngValidated = false);
-            }}
-          />
-
-          {state.validate.detailTitleEngValidated && (
-            <div style={{ color: "red" }}>
-              Please enter a detail title (ENG)
-            </div>
-          )}
-
-          <TextArea
-            className="email-input"
-            placeholder="Email (ENG)"
-            rows={5}
-            id="textEng"
-            value={state.field.textEng}
-            onChange={setInputFieldChange}
-            onBlur={() => {
-              state.field.textEng.length === 0
-                ? (state.validate.textEngValidated = true)
-                : (state.validate.textEngValidated = false);
-            }}
-          />
-
-          {state.validate.textEngValidated && (
-            <div style={{ color: "red" }}>Please enter your details</div>
-          )}
-        </div>
-
-        <div className="email-mid-inner" style={{ marginLeft: "1em" }}>
-          <Input
-            className="email-input"
-            placeholder="Detail Title (KOR)"
-            id="detailTitleKor"
-            value={state.field.detailTitleKor}
-            onChange={setInputFieldChange}
-            onBlur={() => {
-              state.field.detailTitleKor.length === 0
-                ? (state.validate.detailTitleKorValidated = true)
-                : (state.validate.detailTitleKorValidated = false);
-            }}
-          />
-
-          {state.validate.detailTitleKorValidated && (
-            <div style={{ color: "red" }}>
-              Please enter a detail title (KOR)
-            </div>
-          )}
-
-          <TextArea
-            className="email-input"
-            placeholder="Email (KOR)"
-            rows={5}
-            id="textKor"
-            onChange={setInputFieldChange}
-            onBlur={() => {
-              state.field.textKor.length === 0
-                ? (state.validate.textKorValidated = true)
-                : (state.validate.textKorValidated = false);
-            }}
-          />
-
-          {state.validate.textKorValidated && (
-            <div style={{ color: "red" }}>Please enter your details (KOR)</div>
-          )}
-        </div>
-      </div>
+      <TestMailMid state={state} setInputFieldChange={setInputFieldChange} />
 
       <Divider />
 
-      <div
-        style={{
-          width: "100%",
-          marginBottom: "1em",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <h3>Optional</h3>
-
-        <div
-          style={{
-            display: "flex",
-            padding: "0.7em",
-            backgroundColor: "#f1f2f6",
-            borderRadius: "10px",
-            boxShadow: "0 0 20px -3px rgba(0, 0, 0, 0.2)",
-          }}
-        >
-          <span style={{ marginRight: "0.5em" }}>info mail link : </span>
-          {state.field.infoMail ? (
-            <span
-              style={{ color: "blue", fontWeight: "bold", marginRight: "1em" }}
-            >
-              ON
-            </span>
-          ) : (
-            <span
-              style={{ color: "red", fontWeight: "bold", marginRight: "1em" }}
-            >
-              OFF
-            </span>
-          )}
-          <Switch
-            defaultChecked
-            onChange={checked => (state.field.infoMail = checked)}
-          />
-        </div>
-      </div>
-
-      <div className="email-bottom">
-        <div className="email-bottom-inner" style={{ marginRight: "1em" }}>
-          <InputGroup compact className="email-input">
-            <div style={{ display: "flex" }}>
-              <Select
-                defaultValue={selector[0]}
-                onChange={value => {
-                  state.temp.selectEng = value;
-                }}
-              >
-                {selector.map((sel, i) => (
-                  <Option value={sel} key={i}>
-                    {sel}
-                  </Option>
-                ))}
-              </Select>
-              <Input
-                placeholder="Link Title (ENG)"
-                id="linkTitleEng"
-                value={state.temp.linkTitleEng}
-                onChange={setInputTempChange}
-              />
-              <Input
-                placeholder="Link URL (ENG)"
-                id="linkUrlEng"
-                value={state.temp.linkUrlEng}
-                onChange={setInputTempChange}
-              />
-              <AButton
-                onClick={e => {
-                  e.preventDefault();
-                  state.temp.linkUrlEng.length !== 0 &&
-                    state.field.linkEng[state.temp.selectEng].push({
-                      title: state.temp.linkTitleEng,
-                      url: state.temp.linkUrlEng,
-                    });
-                  state.temp.linkTitleEng = "";
-                  state.temp.linkUrlEng = "";
-                }}
-              >
-                Add
-              </AButton>
-            </div>
-          </InputGroup>
-
-          {state.field.linkEng.segment.length !== 0 &&
-            state.field.linkEng.segment.map((el, i) => (
-              <div className="link-list" value={el.title} key={i}>
-                <div className="list-card">SEGMENT</div>
-                <div>
-                  <div className="link-list-element">
-                    Link Title(ENG) : {el.title}
-                  </div>
-                  <div className="link-list-element">
-                    Link URL(ENG) : {el.url}
-                  </div>
-                </div>
-                <AButton
-                  className="link-list-element"
-                  type="danger"
-                  onClick={e => {
-                    e.preventDefault();
-                    state.field.linkEng.segment.splice(i, 1);
-                  }}
-                >
-                  Del
-                </AButton>
-              </div>
-            ))}
-
-          {state.field.linkEng.link.length !== 0 &&
-            state.field.linkEng.link.map((el, i) => (
-              <div className="link-list" value={el.title} key={i}>
-                <div className="list-card">LINK</div>
-                <div>
-                  <div className="link-list-element">
-                    Link Title(ENG) : {el.title}
-                  </div>
-                  <div className="link-list-element">
-                    Link URL(ENG) : {el.url}
-                  </div>
-                </div>
-                <AButton
-                  className="link-list-element"
-                  type="danger"
-                  onClick={e => {
-                    e.preventDefault();
-                    state.field.linkEng.link.splice(i, 1);
-                  }}
-                >
-                  Del
-                </AButton>
-              </div>
-            ))}
-
-          <TextArea
-            className="email-input"
-            placeholder="Email (ENG) - Optional"
-            rows={3}
-            id="textEngOp"
-            value={state.field.textEngOp}
-            onChange={setInputFieldChange}
-          />
-        </div>
-
-        <div className="email-bottom-inner" style={{ marginLeft: "1em" }}>
-          <InputGroup compact className="email-input">
-            <div style={{ display: "flex" }}>
-              <Select
-                defaultValue={selector[0]}
-                onChange={value => {
-                  state.temp.selectKor = value;
-                }}
-              >
-                {selector.map((sel, i) => (
-                  <Option value={sel} key={i}>
-                    {sel}
-                  </Option>
-                ))}
-              </Select>
-              <Input
-                placeholder="Link Title (KOR)"
-                id="linkTitleKor"
-                value={state.temp.linkTitleKor}
-                onChange={setInputTempChange}
-              />
-              <Input
-                placeholder="Link URL (KOR)"
-                id="linkUrlKor"
-                value={state.temp.linkUrlKor}
-                onChange={setInputTempChange}
-              />
-              <AButton
-                onClick={e => {
-                  e.preventDefault();
-                  state.temp.linkUrlKor.length !== 0 &&
-                    state.field.linkKor[state.temp.selectKor].push({
-                      title: state.temp.linkTitleKor,
-                      url: state.temp.linkUrlKor,
-                    });
-                  state.temp.linkTitleKor = "";
-                  state.temp.linkUrlKor = "";
-                }}
-              >
-                Add
-              </AButton>
-            </div>
-          </InputGroup>
-
-          {state.field.linkKor.segment.length !== 0 &&
-            state.field.linkKor.segment.map((el, i) => (
-              <div className="link-list" value={el.title} key={i}>
-                <div className="list-card">SEGMENT</div>
-                <div>
-                  <div className="link-list-element">
-                    Link Title(KOR) : {el.title}
-                  </div>
-                  <div className="link-list-element">
-                    Link URL(KOR) : {el.url}
-                  </div>
-                </div>
-                <AButton
-                  className="link-list-element"
-                  type="danger"
-                  onClick={e => {
-                    e.preventDefault();
-                    state.field.linkKor.segment.splice(i, 1);
-                  }}
-                >
-                  Del
-                </AButton>
-              </div>
-            ))}
-
-          {state.field.linkKor.link.length !== 0 &&
-            state.field.linkKor.link.map((el, i) => (
-              <div className="link-list" value={el.title} key={i}>
-                <div className="list-card">LINK</div>
-                <div>
-                  <div className="link-list-element">
-                    Link Title(KOR) : {el.title}
-                  </div>
-                  <div className="link-list-element">
-                    Link URL(KOR) : {el.url}
-                  </div>
-                </div>
-                <AButton
-                  className="link-list-element"
-                  type="danger"
-                  onClick={e => {
-                    e.preventDefault();
-                    state.field.linkKor.link.splice(i, 1);
-                  }}
-                >
-                  Del
-                </AButton>
-              </div>
-            ))}
-
-          <TextArea
-            className="email-input"
-            placeholder="Email (KOR) - Optional"
-            rows={3}
-            id="textKorOp"
-            value={state.field.textKorOp}
-            onChange={setInputFieldChange}
-          />
-        </div>
-      </div>
+      <TestMailBottom
+        state={state}
+        selector={selector}
+        setInputFieldChange={setInputFieldChange}
+        setInputTempChange={setInputTempChange}
+      />
 
       <div className="mail-buttons">
         <MButton

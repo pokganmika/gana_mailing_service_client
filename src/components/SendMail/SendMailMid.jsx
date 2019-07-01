@@ -1,7 +1,10 @@
 import React from "react";
+import { useObserver } from "mobx-react-lite";
 
 const SendMailMid = () => {
-  return <div>SendMailMid</div>;
+  return useObserver(() => (
+    <div>SendMailMid</div>;
+  ));
 };
 
 export default SendMailMid;
