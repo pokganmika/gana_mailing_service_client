@@ -1,8 +1,37 @@
 import React from "react";
+import axios from "axios";
 import styled from "styled-components";
-import { Input, Button, Icon } from "antd";
+import { Input, Button, Icon, message } from "antd";
+
+import config from "../config";
+const { SERVER_URL } = config();
 
 const Login = props => {
+  console.log("::Login.jsx::props:: ---> : ", props);
+
+  const tryLogin = async props => {
+    console.log("::trylogin::props::check:: ---> : ", props);
+    const data = {
+      id: props.auth.inputId,
+      password: props.auth.inputPw,
+    };
+    console.log("::trylogin::data::check:: ---> :", data);
+    await axios
+      .post(`http://192.168.0.114/users/login`, data)
+      .then(data => {
+        console.log("::::::::::", data);
+        if (data.data.res) {
+          props.authCheck();
+        } else {
+          error();
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    // .post(`${SERVER_URL}/sendmail/test`, data)
+  };
+
   return (
     <LoginWrapper>
       <div className="login-box">
@@ -10,8 +39,15 @@ const Login = props => {
           className="login-input"
           prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
           id="id"
+          value={props.auth.inputId}
           placeholder="ID"
-          // onChange={this.onInputChange}
+          onChange={e => {
+            e.preventDefault();
+            props.setAuth({
+              ...props.auth,
+              inputId: e.target.value,
+            });
+          }}
           // onBlur={() => this.isCorrectEmail(email)}
         />
         <Input
@@ -19,8 +55,15 @@ const Login = props => {
           prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
           type="password"
           id="password"
+          value={props.auth.inputPw}
           placeholder="PASSWORD"
-          // onChange={this.onInputChange}
+          onChange={e => {
+            e.preventDefault();
+            props.setAuth({
+              ...props.auth,
+              inputPw: e.target.value,
+            });
+          }}
           // onBlur={() => this.isCorrectPassword(password)}
           // onKeyPress={e =>
           //   e.key === 'Enter' &&
@@ -31,13 +74,17 @@ const Login = props => {
         <Button
           className="login-button"
           type="primary"
-          // onClick={}
+          onClick={() => tryLogin(props)}
         >
           Login
         </Button>
       </div>
     </LoginWrapper>
   );
+};
+
+const error = () => {
+  message.error("Check your Id or Password");
 };
 
 const LoginWrapper = styled.div`

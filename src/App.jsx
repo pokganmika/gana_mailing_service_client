@@ -20,19 +20,27 @@ const App = () => {
     inputId: "",
     inputPw: "",
   });
+
+  const authCheck = () => {
+    setAuth({
+      authenticated: !auth.authenticated,
+    });
+  };
+
   console.log("[+] NODE_ENV =", process.env.NODE_ENV);
+  console.log("::App.jsx::auth(state):: ---> : ", auth);
   return (
     <div className="App">
-      <Router>
+      {/* <Router>
         <Main />
-      </Router>
-      {/* {!auth.authenticated ? (
+      </Router> */}
+      {auth.authenticated ? (
         <Router>
-          <Main />
+          <Main authCheck={authCheck} />
         </Router>
       ) : (
-          <Login auth={auth} setAuth={setAuth}/>
-      )} */}
+        <Login auth={auth} setAuth={setAuth} authCheck={authCheck} />
+      )}
     </div>
   );
 };
