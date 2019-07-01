@@ -9,10 +9,10 @@ const { TextArea } = Input;
 const { Option } = Select;
 const InputGroup = Input.Group;
 
-import { isCorrectEmail } from "../service/validateService";
-import { PageWrapper } from "../styles/PageWrapper";
+import { isCorrectEmail } from "../../service/validateService";
+import { PageWrapper } from "../../styles/PageWrapper";
 
-import config from "../config";
+import config from "../../config";
 const { SERVER_URL } = config();
 
 const TestMail = () => {

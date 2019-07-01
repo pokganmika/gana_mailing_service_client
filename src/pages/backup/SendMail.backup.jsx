@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { toJS } from "mobx";
@@ -10,18 +10,14 @@ const { TextArea } = Input;
 const { Option } = Select;
 const InputGroup = Input.Group;
 
-import { isCorrectEmail } from "../service/validateService";
-import { PageWrapper } from "../styles/PageWrapper";
-import { TestMailInitState, selector } from "../components/TestMail";
-// import TestMailTop from "../components/TestMail/TestMailTop";
-// import TestMailMid from "../components/TestMail/TestMailMid";
-// import TestMailBottom from "../components/TestMail/TestMailBottom";
+import { PageWrapper } from "../../styles/PageWrapper";
+import { SendMailInitState, selector } from "../../components/SendMail";
 
-import config from "../config";
+import config from "../../config";
 const { SERVER_URL } = config();
 
-const TestMail = () => {
-  const state = useLocalStore(() => TestMailInitState);
+const SendMail = () => {
+  const state = useLocalStore(() => SendMailInitState);
   const setInputFieldChange = e => {
     state.field[e.target.id] = e.target.value;
   };
@@ -36,40 +32,26 @@ const TestMail = () => {
     const data = state.field;
     console.log("check::this::-second::check-:: -----> : ", toJS(data));
     await axios
-      .post(`http://192.168.0.114/sendmail/test`, data)
+      .post(`http://192.168.0.114/sendmail`, data)
       .then(res => console.log("res : ", res))
       .catch(err => console.log("err : ", err));
     // .post(`${SERVER_URL}/sendmail/test`, data)
   };
 
-  // console.log("TestMail.jsx -> state : ", JSON.stringify(state));
-  console.log("TestMail.jsx -> state : ", toJS(state));
+  // console.log("SendMail.jsx -> state : ", JSON.stringify(state));
+  console.log("SendMail.jsx -> state : ", toJS(state));
 
   return useObserver(() => (
     <TestMailPage>
-      <h2 style={{ width: "100%" }}>Test Mail</h2>
+      <h2 style={{ width: "100%" }}>Send Mail</h2>
+
+      {/* <SendMailTop
+        state={state}
+        setInputFieldChange={setInputFieldChange}
+      /> */}
 
       <div className="email-top">
         <div className="email-top-inner">
-          <Input
-            className="email-input"
-            id="email"
-            value={state.field.email}
-            placeholder="Email Address"
-            onChange={setInputFieldChange}
-            onBlur={() => {
-              !isCorrectEmail(state.field.email)
-                ? (state.validate.emailValidated = true)
-                : (state.validate.emailValidated = false);
-            }}
-          />
-
-          {state.validate.emailValidated && (
-            <div style={{ color: "red" }}>Please enter a valid email</div>
-          )}
-        </div>
-
-        <div className="email-top-inner" style={{ marginLeft: "1em" }}>
           <Input
             className="email-input"
             placeholder="Email Title"
@@ -173,7 +155,6 @@ const TestMail = () => {
             placeholder="Email (KOR)"
             rows={5}
             id="textKor"
-            value={state.field.textKor}
             onChange={setInputFieldChange}
             onBlur={() => {
               state.field.textKor.length === 0
@@ -530,4 +511,4 @@ const TestMailPage = styled(PageWrapper)`
   }
 `;
 
-export default TestMail;
+export default SendMail;
