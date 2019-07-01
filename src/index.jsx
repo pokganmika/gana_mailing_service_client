@@ -2,11 +2,9 @@ import "antd/dist/antd.css";
 import "@babel/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
-// import "./index.css";
 import { createGlobalStyle } from "styled-components";
 
 import App from "./App";
-// import Login from "./pages/Login";
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -33,4 +31,3 @@ ReactDOM.render(
   </>,
   document.getElementById("root"),
 );
-// ReactDOM.render(<Login />, document.getElementById("root"));
