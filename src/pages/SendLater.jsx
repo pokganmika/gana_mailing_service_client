@@ -51,36 +51,63 @@ const SendLater = () => {
       <h2 style={{ width: "100%" }}>Send Later</h2>
 
       <div style={{ width: "100%", display: "flex" }}>
-        <Input />
-        <Select>
+        <Input
+          defaultValue="2019"
+          placeholder="YEAR"
+          onChange={e => {
+            e.preventDefault();
+            state.field.time.year = e.target.value;
+          }}
+        />
+        <Select
+          style={{ width: "100%" }}
+          placeholder="MONTH"
+          onChange={value => (state.field.time.month = value)}
+        >
           {timeTable.month.map((month, i) => (
             <Option key={i} value={month}>
               {month}
             </Option>
           ))}
         </Select>
-        <Select>
+        <Select
+          style={{ width: "100%" }}
+          placeholder="DAY"
+          onChange={value => (state.field.time.day = value)}
+        >
           {timeTable.day.map((day, i) => (
             <Option key={i} value={day}>
               {day}
             </Option>
           ))}
         </Select>
-        <Select>
+        <Select
+          style={{ width: "100%" }}
+          placeholder="HOUR"
+          onChange={value => (state.field.time.hour = value)}
+        >
           {timeTable.hour.map((hour, i) => (
             <Option key={i} value={hour}>
               {hour}
             </Option>
           ))}
         </Select>
-        <Select>
+        <Select
+          style={{ width: "100%" }}
+          placeholder="MINUTE"
+          onChange={value => (state.field.time.minute = value)}
+        >
           {timeTable.minute.map((minute, i) => (
             <Option key={i} value={minute}>
               {minute}
             </Option>
           ))}
         </Select>
-        <Select>
+        <Select
+          style={{ width: "100%" }}
+          placeholder="SECOND"
+          onChange={value => (state.field.time.second = value)}
+        >
           {timeTable.second.map((second, i) => (
             <Option key={i} value={second}>
               {second}

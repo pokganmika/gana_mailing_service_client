@@ -19,9 +19,16 @@ export const SendLaterInitState = {
       segment: [],
       link: [],
     },
+    time: {
+      year: "2019",
+      month: "",
+      day: "",
+      hour: "",
+      minute: "",
+      second: "",
+    },
   },
   validate: {
-    emailValidated: false,
     emailTitleValidated: false,
     mainTitleValidated: false,
     detailTitleEngValidated: false,
@@ -64,7 +71,7 @@ for (let i = 1; i < 32; i++) {
   timeTable.day.push(i.toString());
 }
 
-for (let i = 0; i < 23; i++) {
+for (let i = 0; i < 24; i++) {
   timeTable.hour.push(i.toString());
 }
 
