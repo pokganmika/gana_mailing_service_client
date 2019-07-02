@@ -1,3 +1,3 @@
-import { SendLaterInitState, selector } from "./SendLaterInitState";
+import { SendLaterInitState, selector, timeTable } from "./SendLaterInitState";
 
-export { SendLaterInitState, selector };
+export { SendLaterInitState, selector, timeTable };

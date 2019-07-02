@@ -38,3 +38,40 @@ export const SendLaterInitState = {
     linkUrlKor: "",
   },
 };
+
+export const timeTable = {
+  month: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
+  day: [],
+  hour: [],
+  minute: [],
+  second: [],
+};
+
+for (let i = 1; i < 32; i++) {
+  timeTable.day.push(i.toString());
+}
+
+for (let i = 0; i < 23; i++) {
+  timeTable.hour.push(i.toString());
+}
+
+for (let i = 0; i < 60; i++) {
+  timeTable.minute.push(i.toString());
+}
+
+for (let i = 0; i < 60; i++) {
+  timeTable.second.push(i.toString());
+}

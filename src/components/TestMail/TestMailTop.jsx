@@ -7,7 +7,7 @@ const TestMailTop = ({ state, setInputFieldChange, isCorrectEmail }) => {
   console.log("::top::component::state:: ---> ", toJS(state));
   return useObserver(() => (
     <div className="email-top">
-      <div className="email-top-inner">
+      <div className="email-top-inner" style={{ marginRight: "1em" }}>
         <Input
           className="email-input"
           id="email"

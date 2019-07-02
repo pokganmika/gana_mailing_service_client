@@ -11,7 +11,11 @@ const { Option } = Select;
 const InputGroup = Input.Group;
 
 import { PageWrapper } from "../styles/PageWrapper";
-import { SendLaterInitState, selector } from "../components/SendLater";
+import {
+  SendLaterInitState,
+  selector,
+  timeTable,
+} from "../components/SendLater";
 
 import config from "../config";
 const { SERVER_URL } = config();
@@ -40,15 +44,50 @@ const SendLater = () => {
 
   // console.log("SendLater.jsx -> state : ", JSON.stringify(state));
   console.log("SendLater.jsx -> state : ", toJS(state));
+  console.log("SendLater.jsx -> timeTable : ", timeTable);
 
   return useObserver(() => (
     <TestMailPage>
       <h2 style={{ width: "100%" }}>Send Later</h2>
 
-      {/* <SendMailTop
-        state={state}
-        setInputFieldChange={setInputFieldChange}
-      /> */}
+      <div style={{ width: "100%", display: "flex" }}>
+        <Input />
+        <Select>
+          {timeTable.month.map((month, i) => (
+            <Option key={i} value={month}>
+              {month}
+            </Option>
+          ))}
+        </Select>
+        <Select>
+          {timeTable.day.map((day, i) => (
+            <Option key={i} value={day}>
+              {day}
+            </Option>
+          ))}
+        </Select>
+        <Select>
+          {timeTable.hour.map((hour, i) => (
+            <Option key={i} value={hour}>
+              {hour}
+            </Option>
+          ))}
+        </Select>
+        <Select>
+          {timeTable.minute.map((minute, i) => (
+            <Option key={i} value={minute}>
+              {minute}
+            </Option>
+          ))}
+        </Select>
+        <Select>
+          {timeTable.second.map((second, i) => (
+            <Option key={i} value={second}>
+              {second}
+            </Option>
+          ))}
+        </Select>
+      </div>
 
       <div className="email-top">
         <div className="email-top-inner">

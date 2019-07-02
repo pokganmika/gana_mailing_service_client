@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import jwt from "jwt-decode";
-import Loader from "react-loader-spinner";
+import moment from "moment";
 
 import Main from "./components/Main";
 import Login from "./pages/Login";
@@ -40,29 +40,6 @@ const App = () => {
 
   console.log("[+] NODE_ENV =", process.env.NODE_ENV);
   console.log("::App.jsx::auth(state):: ---> : ", auth);
-  // if (auth.authenticated) {
-  //   return !auth.authenticating ? (
-  //     <div className="App">
-  //       <Router>
-  //         <Main authCheck={authCheck} />
-  //       </Router>
-  //     </div>
-  //   ) : (
-  //     <div
-  //       style={{
-  //         width: "100%",
-  //         height: "100%",
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //       }}
-  //     >
-  //       <Loader type="Oval" color="#70a1ff" height="100" width="100" />
-  //     </div>
-  //   );
-  // } else {
-  //   return <Login auth={auth} setAuth={setAuth} authCheck={authCheck} />;
-  // }
   return (
     <div className="App">
       {auth.authenticated ? (
