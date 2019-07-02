@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import jwt from "jwt-decode";
 import styled from "styled-components";
 import { Input, Button, Icon, message } from "antd";
 
@@ -22,6 +21,7 @@ const Login = props => {
       .then(data => {
         console.log("::::::::::", data);
         if (data.data.res) {
+          localStorage.setItem("userVerified", data.data.token);
           props.authCheck();
         } else {
           error();
@@ -49,7 +49,6 @@ const Login = props => {
               inputId: e.target.value,
             });
           }}
-          // onBlur={() => this.isCorrectEmail(email)}
         />
         <Input
           className="login-input"
@@ -65,11 +64,7 @@ const Login = props => {
               inputPw: e.target.value,
             });
           }}
-          // onBlur={() => this.isCorrectPassword(password)}
-          // onKeyPress={e =>
-          //   e.key === 'Enter' &&
-          //   this.onSubmitClick(setUser, setUserMail, setAuth)
-          // }
+          onKeyPress={e => e.key === "Enter" && tryLogin(props)}
         />
 
         <Button

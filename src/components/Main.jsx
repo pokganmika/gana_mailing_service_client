@@ -95,7 +95,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MiniDrawer() {
+export default function MiniDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -154,10 +154,32 @@ export default function MiniDrawer() {
                 Gana Mail
               </Typography>
             </Link>
-            {/* <Button variant="outlined" color="secondary" className={classes.button}> */}
-            <Button variant="outlined" color="secondary">
+            {/* <Button variant="outlined" color="secondary">
               Logout
-            </Button>
+            </Button> */}
+            <div style={{ display: "flex" }}>
+              <Typography
+                noWrap
+                style={{
+                  color: "black",
+                  marginRight: "1em",
+                  paddingTop: "0.3em",
+                  // border: "1px solid red",
+                }}
+              >
+                admin
+              </Typography>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={() => {
+                  localStorage.removeItem("userVerified");
+                  props.authCheck();
+                }}
+              >
+                Logout
+              </Button>
+            </div>
           </TopBarInnerWrapper>
         </Toolbar>
       </AppBar>
@@ -203,7 +225,10 @@ export default function MiniDrawer() {
                 <Edit />
               </ListItemIcon>
 
-              <ListItemText style={{ color: "black" }} primary={"Activity Log"} />
+              <ListItemText
+                style={{ color: "black" }}
+                primary={"Activity Log"}
+              />
             </ListItem>
           </Link>
         </List>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import jwt from 'jwt-decode';
+import jwt from "jwt-decode";
+import Loader from "react-loader-spinner";
 
 import Main from "./components/Main";
 import Login from "./pages/Login";
@@ -16,13 +17,22 @@ import Login from "./pages/Login";
 const App = () => {
   const [auth, setAuth] = useState({
     authenticated: false,
-    id: "admin",
-    pw: "1q2w3e4r~!",
+    authenticating: true,
     inputId: "",
     inputPw: "",
   });
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    if (localStorage.userVerified) {
+      const decoded = jwt(localStorage.userVerified);
+      console.log("::decoded::", decoded);
+      if (decoded.id === "admin") {
+        authCheck();
+      }
+    }
+
+    setAuth({ ...auth, authenticating: false });
+  }, []);
 
   const authCheck = () => {
     setAuth({
@@ -32,11 +42,8 @@ const App = () => {
 
   console.log("[+] NODE_ENV =", process.env.NODE_ENV);
   console.log("::App.jsx::auth(state):: ---> : ", auth);
-  return (
+  return !auth.authenticating ? (
     <div className="App">
-      {/* <Router>
-        <Main />
-      </Router> */}
       {auth.authenticated ? (
         <Router>
           <Main authCheck={authCheck} />
@@ -45,6 +52,8 @@ const App = () => {
         <Login auth={auth} setAuth={setAuth} authCheck={authCheck} />
       )}
     </div>
+  ) : (
+    <Loader type="Oval" color="#70a1ff" height="100" width="100" />
   );
 };
 
