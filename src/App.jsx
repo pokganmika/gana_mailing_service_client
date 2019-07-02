@@ -17,7 +17,6 @@ import Login from "./pages/Login";
 const App = () => {
   const [auth, setAuth] = useState({
     authenticated: false,
-    authenticating: true,
     inputId: "",
     inputPw: "",
   });
@@ -30,19 +29,41 @@ const App = () => {
         authCheck();
       }
     }
-
-    setAuth({ ...auth, authenticating: false });
   }, []);
 
   const authCheck = () => {
     setAuth({
+      ...auth,
       authenticated: !auth.authenticated,
     });
   };
 
   console.log("[+] NODE_ENV =", process.env.NODE_ENV);
   console.log("::App.jsx::auth(state):: ---> : ", auth);
-  return !auth.authenticating ? (
+  // if (auth.authenticated) {
+  //   return !auth.authenticating ? (
+  //     <div className="App">
+  //       <Router>
+  //         <Main authCheck={authCheck} />
+  //       </Router>
+  //     </div>
+  //   ) : (
+  //     <div
+  //       style={{
+  //         width: "100%",
+  //         height: "100%",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}
+  //     >
+  //       <Loader type="Oval" color="#70a1ff" height="100" width="100" />
+  //     </div>
+  //   );
+  // } else {
+  //   return <Login auth={auth} setAuth={setAuth} authCheck={authCheck} />;
+  // }
+  return (
     <div className="App">
       {auth.authenticated ? (
         <Router>
@@ -52,8 +73,6 @@ const App = () => {
         <Login auth={auth} setAuth={setAuth} authCheck={authCheck} />
       )}
     </div>
-  ) : (
-    <Loader type="Oval" color="#70a1ff" height="100" width="100" />
   );
 };
 

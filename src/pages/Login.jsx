@@ -23,6 +23,11 @@ const Login = props => {
         if (data.data.res) {
           localStorage.setItem("userVerified", data.data.token);
           props.authCheck();
+          props.setAuth({
+            ...auth,
+            inputId: "",
+            inputPw: "",
+          });
         } else {
           error();
         }
