@@ -81,21 +81,21 @@ export default function MaterialTableDemo() {
             .format()
             .slice(0, 10);
         }
-        await axios.post(`${target}/subscribe/add`, data);
+        await axios.post(`${SERVER_URL}/subscribe/add`, data);
       } else {
-        await axios.post(`${target}/subscribe/add`, data);
+        await axios.post(`${SERVER_URL}/subscribe/add`, data);
       }
     }
   };
 
   const deleteData = async data => {
     console.log("UserSetting::deleteData::check -> ", data);
-    await axios.post(`${target}/subscribe/delete`, data);
+    await axios.post(`${SERVER_URL}/subscribe/delete`, data);
   };
 
   const updateData = async data => {
     console.log("UserSetting::updateData::check -> ", data);
-    await axios.post(`${target}/subscribe/update`, data);
+    await axios.post(`${SERVER_URL}/subscribe/update`, data);
   };
 
   console.log("UserSetting::data:: -> ", state.data);
