@@ -4,6 +4,9 @@ import styled from "styled-components";
 import moment from "moment";
 import MaterialTable from "material-table";
 
+import config from "../config";
+const { SERVER_URL } = config();
+
 export default function MaterialTableDemo() {
   const [state, setState] = useState({
     columns: [

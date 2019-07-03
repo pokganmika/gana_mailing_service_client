@@ -8,7 +8,7 @@ import TestMail from "../pages/TestMail";
 import SendLater from "../pages/SendLater";
 import UserSetting from "../pages/UserSetting";
 
-import TempActivityLog from "../pages/TempActivityLog";
+import BackUpActivityLog from "../pages/BackUpActivityLog";
 
 const MainRoute = props => {
   return (
@@ -20,7 +20,7 @@ const MainRoute = props => {
       <Route path="/sendlater" component={SendLater} />
       <Route path="/usersetting" component={UserSetting} />
 
-      <Route path="/temp" component={TempActivityLog} />
+      <Route path="/temp" component={BackUpActivityLog} />
     </>
   );
 };
