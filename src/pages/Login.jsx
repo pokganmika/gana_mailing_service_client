@@ -1,10 +1,12 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { Input, Button, Icon, message } from "antd";
+import { Input, Button, Icon } from "antd";
 
 import config from "../config";
 const { SERVER_URL } = config();
+
+import { error } from "../service/messageService";
 
 const Login = props => {
   console.log("::Login.jsx::props:: ---> : ", props);
@@ -29,7 +31,7 @@ const Login = props => {
             inputPw: "",
           });
         } else {
-          error();
+          error("Check your Id or Password");
         }
       })
       .catch(err => {
@@ -82,10 +84,6 @@ const Login = props => {
       </div>
     </LoginWrapper>
   );
-};
-
-const error = () => {
-  message.error("Check your Id or Password");
 };
 
 const LoginWrapper = styled.div`

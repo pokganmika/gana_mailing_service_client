@@ -16,6 +16,7 @@ import {
   selector,
   timeTable,
 } from "../components/SendLater";
+import { error } from "../service/messageService";
 
 import config from "../config";
 const { SERVER_URL } = config();
@@ -33,6 +34,12 @@ const SendLater = () => {
   //   state.validate[e.target.id] = !state.validate[e.target.id];
   // };
   const onSubmit = async state => {
+    const { month, day, hour } = state.field.time;
+    if (!month || !day || !hour) {
+      error("MONTH and DAY, HOUR are absolutely necessary.");
+      return;
+    }
+
     const data = state.field;
     console.log("check::this::-second::check-:: -----> : ", toJS(data));
     await axios
