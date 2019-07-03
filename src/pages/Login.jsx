@@ -19,7 +19,7 @@ const Login = props => {
     };
     console.log("::trylogin::data::check:: ---> :", data);
     await axios
-      .post(`http://192.168.0.114/users/login`, data)
+      .post(`${SERVER_URL}/users/login`, data)
       .then(data => {
         console.log("::::::::::", data);
         if (data.data.res) {
@@ -37,7 +37,6 @@ const Login = props => {
       .catch(err => {
         console.log(err);
       });
-    // .post(`${SERVER_URL}/sendmail/test`, data)
   };
 
   return (

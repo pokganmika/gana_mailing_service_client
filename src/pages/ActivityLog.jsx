@@ -138,6 +138,7 @@ class ActivityLog extends React.Component {
           height: "100%",
         }}
       >
+        <h2 style={{ width: "100%" }}>Activity Log</h2>
         <Table columns={columns} dataSource={this.state.allLog} />
         {/* <Table columns={columns} dataSource={data} /> */}
       </div>

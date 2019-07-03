@@ -63,10 +63,10 @@ const TestMail = () => {
     const data = state.field;
     console.log("check this : ", data);
     await axios
-      .post(`http://192.168.0.114/sendmail`, data)
+      .post(`${SERVER_URL}/sendmail/test`, data)
+      // .post(`http://192.168.0.114/sendmail`, data)
       .then(res => console.log("res : ", res))
       .catch(err => console.log("err : ", err));
-    // .post(`${SERVER_URL}/sendmail/test`, data)
   };
 
   console.log("TestMail.jsx -> state : ", state);

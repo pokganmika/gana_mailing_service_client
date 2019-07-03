@@ -40,7 +40,7 @@ const TestMail = () => {
     const data = state.field;
     console.log("check::this::-second::check-:: -----> : ", toJS(data));
     await axios
-      .post(`http://192.168.0.114/sendmail/test`, data)
+      .post(`${SERVER_URL}/sendmail/test`, data)
       .then(res => console.log("res : ", res))
       .catch(err => console.log("err : ", err));
     // .post(`${SERVER_URL}/sendmail/test`, data)

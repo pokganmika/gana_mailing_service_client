@@ -53,11 +53,11 @@ export default function MaterialTableDemo() {
     // ],
   });
 
-  const target = "http://192.168.0.114";
+  // const target = "http://192.168.0.114";
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(`${target}/subscribe`);
+      const result = await axios.get(`${SERVER_URL}/subscribe`);
       // const result = await axios.get("http://192.168.0.114/subscribe");
       // .then(res => console.log(res))
       // .catch(err => console.log(err));
