@@ -21,7 +21,6 @@ export const SendMailInitState = {
     },
   },
   validate: {
-    emailValidated: false,
     emailTitleValidated: false,
     mainTitleValidated: false,
     detailTitleEngValidated: false,

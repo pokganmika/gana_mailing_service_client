@@ -12,6 +12,7 @@ const InputGroup = Input.Group;
 
 import { PageWrapper } from "../styles/PageWrapper";
 import { SendMailInitState, selector } from "../components/SendMail";
+import { error } from "../service/messageService";
 
 import config from "../config";
 const { SERVER_URL } = config();
@@ -29,13 +30,34 @@ const SendMail = () => {
   //   state.validate[e.target.id] = !state.validate[e.target.id];
   // };
   const onSubmit = async state => {
-    const data = state.field;
-    console.log("check::this::-second::check-:: -----> : ", toJS(data));
-    await axios
-      .post(`http://192.168.0.114/sendmail`, data)
-      .then(res => console.log("res : ", res))
-      .catch(err => console.log("err : ", err));
-    // .post(`${SERVER_URL}/sendmail/test`, data)
+    const {
+      emailTitle,
+      mainTitle,
+      detailTitleEng,
+      textEng,
+      detailTitleKor,
+      textKor,
+    } = state.field;
+
+    if (
+      !emailTitle ||
+      !mainTitle ||
+      !detailTitleEng ||
+      !detailTitleKor ||
+      !textEng ||
+      !textKor
+    ) {
+      error("Please fill the text filed");
+      return;
+    } else {
+      const data = state.field;
+      console.log("check::this::-second::check-:: -----> : ", toJS(data));
+      await axios
+        .post(`http://192.168.0.114/sendmail`, data)
+        .then(res => console.log("res : ", res))
+        .catch(err => console.log("err : ", err));
+      // .post(`${SERVER_URL}/sendmail/test`, data)
+    }
   };
 
   // console.log("SendMail.jsx -> state : ", JSON.stringify(state));

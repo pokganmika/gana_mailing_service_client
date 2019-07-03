@@ -10,7 +10,7 @@ const { TextArea } = Input;
 const { Option } = Select;
 const InputGroup = Input.Group;
 
-import { PageWrapper } from "../styles/PageWrapper";
+import { MailWrapper } from "../styles/MailWrapper";
 import {
   SendLaterInitState,
   selector,
@@ -34,19 +34,37 @@ const SendLater = () => {
   //   state.validate[e.target.id] = !state.validate[e.target.id];
   // };
   const onSubmit = async state => {
-    const { month, day, hour } = state.field.time;
+    const {
+      emailTitle,
+      mainTitle,
+      detailTitleEng,
+      textEng,
+      detailTitleKor,
+      textKor,
+      time: { month, day, hour },
+    } = state.field;
     if (!month || !day || !hour) {
       error("MONTH and DAY, HOUR are absolutely necessary.");
       return;
+    } else if (
+      !emailTitle ||
+      !mainTitle ||
+      !detailTitleEng ||
+      !textEng ||
+      !detailTitleKor ||
+      !textKor
+    ) {
+      error("Please fill the text filed");
+      return;
+    } else {
+      const data = state.field;
+      console.log("check::this::-second::check-:: -----> : ", toJS(data));
+      await axios
+        .post(`http://192.168.0.114/sendmail/sendlater`, data)
+        .then(res => console.log("res : ", res))
+        .catch(err => console.log("err : ", err));
+      // .post(`${SERVER_URL}/sendmail/test`, data)
     }
-
-    const data = state.field;
-    console.log("check::this::-second::check-:: -----> : ", toJS(data));
-    await axios
-      .post(`http://192.168.0.114/sendmail/sendlater`, data)
-      .then(res => console.log("res : ", res))
-      .catch(err => console.log("err : ", err));
-    // .post(`${SERVER_URL}/sendmail/test`, data)
   };
 
   // console.log("SendLater.jsx -> state : ", JSON.stringify(state));
@@ -54,11 +72,12 @@ const SendLater = () => {
   console.log("SendLater.jsx -> timeTable : ", timeTable);
 
   return useObserver(() => (
-    <TestMailPage>
+    <SendLaterPage>
       <h2 style={{ width: "100%" }}>Send Later</h2>
 
       <div style={{ width: "100%", display: "flex" }}>
         <Input
+          className="time-input"
           defaultValue="2019"
           placeholder="YEAR"
           onChange={e => {
@@ -67,7 +86,7 @@ const SendLater = () => {
           }}
         />
         <Select
-          style={{ width: "100%" }}
+          className="time-input-select"
           placeholder="MONTH"
           onChange={value => (state.field.time.month = value)}
         >
@@ -78,7 +97,7 @@ const SendLater = () => {
           ))}
         </Select>
         <Select
-          style={{ width: "100%" }}
+          className="time-input-select"
           placeholder="DAY"
           onChange={value => (state.field.time.day = value)}
         >
@@ -89,7 +108,7 @@ const SendLater = () => {
           ))}
         </Select>
         <Select
-          style={{ width: "100%" }}
+          className="time-input-select"
           placeholder="HOUR"
           onChange={value => (state.field.time.hour = value)}
         >
@@ -100,7 +119,7 @@ const SendLater = () => {
           ))}
         </Select>
         <Select
-          style={{ width: "100%" }}
+          className="time-input-select"
           placeholder="MINUTE"
           onChange={value => (state.field.time.minute = value)}
         >
@@ -111,7 +130,7 @@ const SendLater = () => {
           ))}
         </Select>
         <Select
-          style={{ width: "100%" }}
+          className="time-input-select-last"
           placeholder="SECOND"
           onChange={value => (state.field.time.second = value)}
         >
@@ -507,80 +526,21 @@ const SendLater = () => {
           Send
         </MButton>
       </div>
-    </TestMailPage>
+    </SendLaterPage>
   ));
 };
 
-const TestMailPage = styled(PageWrapper)`
-  .email-input {
-    margin-top: 0.7em;
-    margin-bottom: 0.7em;
+const SendLaterPage = styled(MailWrapper)`
+  .time-input {
+    margin: 1em 1em 1em 0;
   }
-  .mail-buttons {
+  .time-input-select {
     width: 100%;
     margin: 1em;
-    display: flex;
-    justify-content: flex-end;
   }
-
-  .email-top {
+  .time-input-select-last {
     width: 100%;
-    display: flex;
-  }
-  .email-top-inner {
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-  }
-
-  .email-mid {
-    width: 100%;
-    display: flex;
-  }
-  .email-mid-inner {
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-  }
-
-  .email-bottom {
-    width: 100%;
-    display: flex;
-  }
-  .email-bottom-inner {
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-  }
-
-  .link-list {
-    border-radius: 10px;
-    margin: 0.5em;
-    background-color: #f1f2f6;
-    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    div {
-      width: 100%;
-      font-weight: bold;
-    }
-  }
-  .link-list-element {
-    margin: 1em;
-  }
-  .list-card {
-    font-weight: bold;
-    border-radius: 10px;
-    background-color: #dfe4ea;
-    max-width: 75px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1em;
+    margin: 1em 0 1em 1em;
   }
 `;
 
