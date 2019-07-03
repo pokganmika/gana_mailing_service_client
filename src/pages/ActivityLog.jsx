@@ -3,6 +3,9 @@ import axios from "axios";
 import { Table, Input, Button, Icon } from "antd";
 import Highlighter from "react-highlight-words";
 
+import config from "../config";
+const { SERVER_URL } = config();
+
 class ActivityLog extends React.Component {
   state = {
     searchText: "",
@@ -10,7 +13,7 @@ class ActivityLog extends React.Component {
   };
 
   async componentDidMount() {
-    const result = await axios.get(`http://192.168.0.114/log`);
+    const result = await axios.get(`${SERVER_URL}/log`);
     this.getData(result.data);
   }
 
