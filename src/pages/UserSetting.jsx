@@ -61,13 +61,14 @@ export default function MaterialTableDemo() {
       // const result = await axios.get("http://192.168.0.114/subscribe");
       // .then(res => console.log(res))
       // .catch(err => console.log(err));
-      console.log("fetchData : ", result.data);
-      console.log("fetchData Arr : ", result.data.Items);
-      setState({ ...state, data: result.data.Items });
+      console.log("fetchData : ", result);
+      console.log("fetchData Arr : ", result.data);
+      setState({ ...state, data: result.data });
     };
     fetchData();
   }, []);
 
+  // TODO: data.created_at => unix time modify
   const addData = async data => {
     console.log("UserSetting::addData::check -> ", data);
     if (!data.email) {

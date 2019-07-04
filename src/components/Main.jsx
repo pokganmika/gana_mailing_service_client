@@ -112,11 +112,6 @@ export default function MiniDrawer(props) {
     setOpen(false);
   }
 
-  const test = async () => {
-    await axios.get("http://192.168.0.114/sendmail");
-    console.log("click");
-  };
-
   return (
     <div
       className={classes.root}
@@ -145,12 +140,7 @@ export default function MiniDrawer(props) {
 
           <TopBarInnerWrapper>
             <Link to="/">
-              <Typography
-                variant="h6"
-                noWrap
-                style={{ color: "black" }}
-                onClick={test}
-              >
+              <Typography variant="h6" noWrap style={{ color: "black" }}>
                 Gana Mail
               </Typography>
             </Link>
