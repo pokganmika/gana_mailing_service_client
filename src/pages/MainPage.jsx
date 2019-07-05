@@ -7,6 +7,7 @@ import Loader from "react-loader-spinner";
 
 import { PageWrapper } from "../styles/PageWrapper";
 import { MainPageInitState } from "../components/MainPage";
+import MainCard from "../components/common/MainCard";
 import Card from "../components/common/Card";
 
 import config from "../config";
@@ -33,33 +34,13 @@ const MainPage = props => {
     <MainPageWrapper>
       <div className="db-status">
         <h2>Subscriber Data</h2>
+
         {state.dbData !== null ? (
-          <div
-            style={{
-              width: "30%",
-              marginLeft: "1em",
-              borderRadius: "15px",
-              backgroundColor: "#f1f2f6",
-              boxShadow: "0 0 20px -3px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-            <div
-              style={{
-                width: "100%",
-                padding: "1em 0 0 1em",
-                fontSize: "3em",
-                fontWeight: "bold",
-              }}
-            >
-              {`${state.dbData.subsCount} / ${state.dbData.scannedCount}`}
-            </div>
-            <div
-              style={{
-                width: "100%",
-                padding: "1em 0 1em 2em",
-                fontWeight: "bold",
-              }}
-            >{`( Subscriber / Total )`}</div>
+          <div style={{ width: "50%" }}>
+            <MainCard
+              subs={state.dbData.subsCount}
+              total={state.dbData.scannedCount}
+            />
           </div>
         ) : (
           <div className="main-spinner">
@@ -204,29 +185,29 @@ const MainPageWrapper = styled(PageWrapper)`
   .db-status {
     width: 95%;
     height: 25%;
-    border: 1px solid green;
+    border-radius: 20px;
+    /* border: 1px solid green; */
+    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.2);
+    padding: 1.5em;
   }
   .mail-status {
     width: 95%;
     height: 70%;
-    border: 1px solid blue;
+    border-radius: 20px;
+    /* border: 1px solid blue; */
+    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.2);
+    padding: 1.5em;
     .mail-status-child {
       width: 100%;
       height: 50%;
-      border: 1px solid black;
       .mail-data {
         width: 100%;
         height: 35%;
         display: flex;
         flex-flow: wrap;
-        /* div {
-          margin: 1em;
-          border: 1px solid orange;
-        } */
       }
     }
   }
-  border: 1px solid red;
 `;
 
 export default MainPage;
