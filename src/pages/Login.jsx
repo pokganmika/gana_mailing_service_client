@@ -42,6 +42,10 @@ const Login = props => {
   return (
     <LoginWrapper>
       <div className="login-box">
+        <h1>Gana Mail</h1>
+
+        <h2>Login</h2>
+
         <Input
           className="login-input"
           prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -95,7 +99,7 @@ const LoginWrapper = styled.div`
     width: 50%;
     height: 50%;
     border-radius: 20px;
-    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     justify-content: center;
