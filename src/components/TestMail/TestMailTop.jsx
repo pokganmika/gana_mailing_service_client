@@ -4,7 +4,7 @@ import { useObserver } from "mobx-react-lite";
 import { Input } from "antd";
 
 const TestMailTop = ({ state, setInputFieldChange, isCorrectEmail }) => {
-  console.log("::top::component::state:: ---> ", toJS(state));
+  console.log("::testmail::top::component::state:: ---> ", toJS(state));
   return useObserver(() => (
     <div className="email-top">
       <div className="email-top-inner" style={{ marginRight: "1em" }}>

@@ -1,6 +1,12 @@
 import { SendMailInitState, selector } from "./SendMailInitState";
-// import SendMailTop from './SendMailTop';
-// import SendMailMid from './SendMailMid';
-// import SendMailBottom from './SendMailBottom';
+import SendMailTop from "./SendMailTop";
+import SendMailMid from "./SendMailMid";
+import SendMailBottom from "./SendMailBottom";
 
-export { SendMailInitState, selector };
+export {
+  SendMailInitState,
+  selector,
+  SendMailTop,
+  SendMailMid,
+  SendMailBottom,
+};

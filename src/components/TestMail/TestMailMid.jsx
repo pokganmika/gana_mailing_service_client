@@ -5,7 +5,7 @@ import { Input } from "antd";
 const { TextArea } = Input;
 
 const TestMailMid = ({ state, setInputFieldChange }) => {
-  console.log("::mid::component::state:: ---> ", toJS(state));
+  console.log("::testmail::mid::component::state:: ---> : ", toJS(state));
   return useObserver(() => (
     <>
       <Input

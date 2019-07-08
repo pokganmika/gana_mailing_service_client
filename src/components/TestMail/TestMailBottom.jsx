@@ -12,7 +12,7 @@ const TestMailBottom = ({
   setInputFieldChange,
   setInputTempChange,
 }) => {
-  console.log("::bottom::component::state:: ---> ", toJS(state));
+  console.log("::testmail::bottom::component::state:: ---> ", toJS(state));
   return useObserver(() => (
     <>
       <div
