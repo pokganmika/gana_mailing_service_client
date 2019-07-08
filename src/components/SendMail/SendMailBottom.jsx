@@ -12,7 +12,7 @@ const SendMailBottom = ({
   setInputFieldChange,
   setInputTempChange,
 }) => {
-  console.log("::sendmail::bottom::component::state:: ---> ", toJS(state));
+  console.log("::sendmail::bottom::component::state:: ---> : ", toJS(state));
   return useObserver(() => (
     <>
       <div

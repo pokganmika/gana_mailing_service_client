@@ -4,7 +4,7 @@ import { useObserver } from "mobx-react-lite";
 import { Input } from "antd";
 
 const SendMailTop = ({ state, setInputFieldChange }) => {
-  console.log("::sendmail::top::component::state:: ---> ", toJS(state));
+  console.log("::sendmail::top::component::state:: ---> : ", toJS(state));
   return useObserver(() => (
     <div className="email-top">
       <div className="email-top-inner">
