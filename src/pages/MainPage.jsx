@@ -24,6 +24,37 @@ const MainPage = props => {
       state.dbData = dbResult.data;
       state.mailWeeklyData = mailWeeklyResult.data[0].stats[0].metrics;
       state.mailMonthlyData = mailMonthlyResult.data[0].stats[0].metrics;
+
+      console.log("::mainpage::mailweeklyresult:: ---> : ", mailWeeklyResult);
+      console.log("::mainpage::mailmonthlyresult:: ---> : ", mailMonthlyResult);
+      console.log("::mainpage::dbresult:: ---> : ", dbResult);
+
+      // -----
+
+      // await axios
+      //   .get(`${SERVER_URL}/main/weekly`)
+      //   .then(data => {
+      //     state.mailWeeklyData = data.data[0].stats[0].metrics;
+      //   })
+      //   .catch(err =>
+      //     console.log("::mainpage::weekly::data::error:: ---> : ", err),
+      //   );
+      // await axios
+      //   .get(`${SERVER_URL}/main/monthly`)
+      //   .then(data => {
+      //     state.mailMonthlyData = data.data[0].stats[0].metrics;
+      //   })
+      //   .catch(err =>
+      //     console.log("::mainpage::monthly::data::error:: ---> : ", err),
+      //   );
+      // await axios
+      //   .get(`${SERVER_URL}/subscribe/main`)
+      //   .then(data => {
+      //     state.dbData = data.data[0].stats[0].metrics;
+      //   })
+      //   .catch(err =>
+      //     console.log("::mainpage::subscriber::data::error:: ---> : ", err),
+      //   );
     };
     fetchData();
   }, []);
