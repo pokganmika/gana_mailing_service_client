@@ -19,6 +19,7 @@ import {
   SendMailMid,
   SendMailBottom,
 } from "../components/SendMail";
+import { MailMid, MailBottom } from "../components/common/Mail";
 import { error } from "../service/messageService";
 
 import config from "../config";
@@ -77,11 +78,11 @@ const SendMail = () => {
 
       <Divider />
 
-      <SendMailMid state={state} setInputFieldChange={setInputFieldChange} />
+      <MailMid state={state} setInputFieldChange={setInputFieldChange} />
 
       <Divider />
 
-      <SendMailBottom
+      <MailBottom
         state={state}
         selector={selector}
         setInputFieldChange={setInputFieldChange}

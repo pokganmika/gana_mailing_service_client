@@ -17,9 +17,10 @@ import {
   selector,
   timeTable,
   SendLaterTop,
-  SendLaterMid,
-  SendLaterBottom,
+  // SendLaterMid,
+  // SendLaterBottom,
 } from "../components/SendLater";
+import { MailMid, MailBottom } from "../components/common/Mail";
 import { error } from "../service/messageService";
 
 import config from "../config";
@@ -86,11 +87,11 @@ const SendLater = () => {
 
       <Divider />
 
-      <SendLaterMid state={state} setInputFieldChange={setInputFieldChange} />
+      <MailMid state={state} setInputFieldChange={setInputFieldChange} />
 
       <Divider />
 
-      <SendLaterBottom
+      <MailBottom
         state={state}
         selector={selector}
         setInputFieldChange={setInputFieldChange}
