@@ -246,6 +246,19 @@ export default function MiniDrawer(props) {
             </ListItem>
           </Link>
 
+          <Link to="/sendlaterlist">
+            <ListItem button key={"Send Later List"}>
+              <ListItemIcon>
+                <CheckBox />
+              </ListItemIcon>
+
+              <ListItemText
+                style={{ color: "black" }}
+                primary={"Send Later List"}
+              />
+            </ListItem>
+          </Link>
+
           <Link to="/testmail">
             <ListItem button key={"Test Mail"}>
               <ListItemIcon>
