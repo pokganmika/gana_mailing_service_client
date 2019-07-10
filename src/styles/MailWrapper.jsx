@@ -11,6 +11,11 @@ export const MailWrapper = styled(PageWrapper)`
     margin: 1em;
     display: flex;
     justify-content: flex-end;
+    .mail-test-button {
+      margin-right: 1em;
+      color: green;
+      border-color: green;
+    }
   }
 
   .email-top {

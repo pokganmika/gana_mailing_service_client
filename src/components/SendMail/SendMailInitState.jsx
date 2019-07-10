@@ -36,4 +36,8 @@ export const SendMailInitState = {
     linkUrlEng: "",
     linkUrlKor: "",
   },
+  modal: {
+    email: "",
+    visible: false,
+  },
 };

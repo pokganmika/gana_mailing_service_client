@@ -1,5 +1,9 @@
 import { message } from "antd";
 
+message.config({
+  top: 80,
+});
+
 export const info = msg => {
   message.info(msg);
 };
