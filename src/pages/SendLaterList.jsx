@@ -10,6 +10,7 @@ import Loader from "react-loader-spinner";
 
 import { SendLaterInitState } from "../components/SendLaterList";
 import { PageWrapper } from "../styles/PageWrapper";
+import { success, error } from "../service/messageService";
 
 import config from "../config";
 const { SERVER_URL } = config();
@@ -24,6 +25,45 @@ const SendLaterList = () => {
     };
     fetchData();
   }, []);
+
+  const onSubmitRepend = async () => {
+    await axios
+      .post(`${SERVER_URL}/mailedit/`)
+      .then(result => {
+        console.log(result);
+        success();
+      })
+      .catch(err => {
+        console.log(err);
+        error();
+      });
+  };
+
+  const onSubmitPause = async () => {
+    await axios
+      .post(`${SERVER_URL}/mailedit/`)
+      .then(result => {
+        console.log(result);
+        success();
+      })
+      .catch(err => {
+        console.log(err);
+        error();
+      });
+  };
+
+  const onSubmitCancel = async () => {
+    await axios
+      .post(`${SERVER_URL}/mailedit/`)
+      .then(result => {
+        console.log(result);
+        success();
+      })
+      .catch(err => {
+        console.log(err);
+        error();
+      });
+  };
 
   console.log("::sendlaterlist::page::state:: ---> : ", toJS(state));
   return useObserver(() => (
@@ -54,9 +94,11 @@ const SendLaterList = () => {
                 </p>
                 <div>
                   SCHEDULED TIME :{" "}
-                  {moment
+                  {`${moment
                     .unix(e.scheduledTime / 1000)
-                    .format("MMMM Do YYYY, h:mm:ss a")}
+                    .format("MMMM Do YYYY, h:mm:ss a")} (${moment
+                    .unix(e.scheduledTime / 1000)
+                    .fromNow()})`}
                 </div>
                 <p>SENDING TIME : {e.time}</p>
                 <p>
