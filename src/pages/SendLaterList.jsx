@@ -15,7 +15,7 @@ import { success, error } from "../service/messageService";
 import config from "../config";
 const { SERVER_URL } = config();
 
-const SendLaterList = () => {
+const SendLaterList = props => {
   const state = useLocalStore(() => SendLaterInitState);
 
   useEffect(() => {
@@ -26,42 +26,54 @@ const SendLaterList = () => {
     fetchData();
   }, []);
 
-  const onSubmitRepend = async () => {
+  const onSubmitRepend = async (batch, id) => {
+    const data = { batch_id: batch, id };
     await axios
-      .post(`${SERVER_URL}/mailedit/`)
+      .post(`${SERVER_URL}/mailedit/delete`, data)
       .then(result => {
-        console.log(result);
-        success();
+        console.log(
+          "::sendLaterList::page::onSubmitRepend::success:: ---> : ",
+          result,
+        );
+        success(`Success Repend`);
       })
       .catch(err => {
-        console.log(err);
-        error();
+        console.log("::sendLater::page::onSubmitRepend::failed:: ---> : ", err);
+        error(`Failed Repend`);
       });
   };
 
-  const onSubmitPause = async () => {
+  const onSubmitPause = async (batch, id) => {
+    const data = { batch_id: batch, id };
     await axios
-      .post(`${SERVER_URL}/mailedit/`)
+      .post(`${SERVER_URL}/mailedit/pause`, data)
       .then(result => {
-        console.log(result);
-        success();
+        console.log(
+          "::sendLater::page::onSubmitPause::success:: ---> : ",
+          result,
+        );
+        success(`Success Pause`);
       })
       .catch(err => {
-        console.log(err);
-        error();
+        console.log("::sendLater::page::onSubmitPause::failed:: ---> : ", err);
+        error(`Failed Pause`);
       });
   };
 
-  const onSubmitCancel = async () => {
+  const onSubmitCancel = async (batch, id) => {
+    const data = { batch_id: batch, id };
     await axios
-      .post(`${SERVER_URL}/mailedit/`)
+      .post(`${SERVER_URL}/mailedit/cancel`, data)
       .then(result => {
-        console.log(result);
-        success();
+        console.log(
+          "::sendLater::page::onSubmitCancel::success:: ---> :",
+          result,
+        );
+        success(`Success Cancel`);
       })
       .catch(err => {
-        console.log(err);
-        error();
+        console.log("::sendLater::page::onSubmitCancel::failed:: ---> :", err);
+        error(`Failed Cancel`);
       });
   };
 
@@ -77,6 +89,7 @@ const SendLaterList = () => {
             title={e.emailTitle}
             bordered={false}
             key={i}
+            value={e}
             style={{ margin: "1em" }}
           >
             <div className="card-inner-wrapper">
@@ -90,6 +103,7 @@ const SendLaterList = () => {
                       : "list-red"
                   }
                 >
+                  <span>{"● "}</span>
                   {e.status}
                 </p>
                 <div>
@@ -101,14 +115,11 @@ const SendLaterList = () => {
                     .fromNow()})`}
                 </div>
                 <p>SENDING TIME : {e.time}</p>
-                <p>
-                  BATCH ID : {e.batchId}
-                  {/** TODO: batch_id를 보여줘야 되나? */}
-                </p>
+                <p>BATCH ID : {e.batchId}</p>
               </div>
 
               <div className="list-buttons">
-                {e.status === "Pause" && (
+                {e.status !== "Pending" && (
                   <MButton
                     className="list-button"
                     variant="outlined"
@@ -116,6 +127,10 @@ const SendLaterList = () => {
                     style={{
                       borderColor: "green",
                       color: "green",
+                    }}
+                    onClick={() => {
+                      onSubmitRepend(e.batchId, e.id);
+                      e.status = "Pending";
                     }}
                   >
                     Repend
@@ -131,17 +146,25 @@ const SendLaterList = () => {
                       borderColor: "orange",
                       color: "orange",
                     }}
+                    onClick={() => {
+                      onSubmitPause(e.batchId, e.id);
+                      e.status = "Pause";
+                    }}
                   >
                     Pause
                   </MButton>
                 )}
 
-                {e.status !== "Cancel" && (
+                {e.status === "Pending" && (
                   <MButton
                     className="list-button"
                     variant="outlined"
                     color="primary"
                     style={{ borderColor: "red", color: "red" }}
+                    onClick={() => {
+                      onSubmitCancel(e.batchId, e.id);
+                      e.status = "Cancel";
+                    }}
                   >
                     Cancel
                   </MButton>
