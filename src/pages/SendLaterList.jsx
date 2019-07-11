@@ -110,9 +110,49 @@ const SendLaterList = props => {
                   SCHEDULED TIME :{" "}
                   {`${moment
                     .unix(e.scheduledTime / 1000)
+                    .format("MMMM Do YYYY, h:mm:ss a")}`}
+                  <span
+                    className={
+                      moment
+                        .unix(e.scheduledTime / 1000)
+                        .fromNow()
+                        .slice(
+                          moment.unix(e.scheduledTime / 1000).fromNow().length -
+                            2,
+                          moment.unix(e.scheduledTime / 1000).fromNow().length -
+                            1,
+                        ) === "a"
+                        ? "list-green"
+                        : moment
+                            .unix(e.scheduledTime / 1000)
+                            .fromNow()
+                            .slice(
+                              moment.unix(e.scheduledTime / 1000).fromNow()
+                                .length - 2,
+                              moment.unix(e.scheduledTime / 1000).fromNow()
+                                .length - 1,
+                            ) === "r" || "u"
+                        ? "list-orange"
+                        : moment
+                            .unix(e.scheduledTime / 1000)
+                            .fromNow()
+                            .slice(
+                              moment.unix(e.scheduledTime / 1000).fromNow()
+                                .length - 2,
+                              moment.unix(e.scheduledTime / 1000).fromNow()
+                                .length - 1,
+                            ) === "e"
+                        ? "list-red"
+                        : ""
+                    }
+                  >
+                    {` ( ${moment.unix(e.scheduledTime / 1000).fromNow()} )`}
+                  </span>
+                  {/* {`${moment
+                    .unix(e.scheduledTime / 1000)
                     .format("MMMM Do YYYY, h:mm:ss a")} (${moment
                     .unix(e.scheduledTime / 1000)
-                    .fromNow()})`}
+                    .fromNow()})`} */}
                 </div>
                 <p>SENDING TIME : {e.time}</p>
                 <p>BATCH ID : {e.batchId}</p>
