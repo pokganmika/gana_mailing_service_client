@@ -116,32 +116,22 @@ const SendLaterList = props => {
                       moment
                         .unix(e.scheduledTime / 1000)
                         .fromNow()
-                        .slice(
-                          moment.unix(e.scheduledTime / 1000).fromNow().length -
-                            2,
-                          moment.unix(e.scheduledTime / 1000).fromNow().length -
-                            1,
-                        ) === "a"
+                        .includes("ago")
+                        ? ""
+                        : moment
+                            .unix(e.scheduledTime / 1000)
+                            .fromNow()
+                            .includes("day")
                         ? "list-green"
                         : moment
                             .unix(e.scheduledTime / 1000)
                             .fromNow()
-                            .slice(
-                              moment.unix(e.scheduledTime / 1000).fromNow()
-                                .length - 2,
-                              moment.unix(e.scheduledTime / 1000).fromNow()
-                                .length - 1,
-                            ) === "r" || "u"
+                            .includes("hour")
                         ? "list-orange"
                         : moment
                             .unix(e.scheduledTime / 1000)
                             .fromNow()
-                            .slice(
-                              moment.unix(e.scheduledTime / 1000).fromNow()
-                                .length - 2,
-                              moment.unix(e.scheduledTime / 1000).fromNow()
-                                .length - 1,
-                            ) === "e"
+                            .includes("minute")
                         ? "list-red"
                         : ""
                     }
