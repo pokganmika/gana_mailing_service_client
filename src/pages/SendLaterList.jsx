@@ -185,6 +185,7 @@ const SendLaterList = props => {
                   </MButton>
                 )}
 
+                {/** TODO: Update Cancel button! */}
                 {e.status === "Pending" && (
                   <MButton
                     className="list-button"
