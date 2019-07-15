@@ -18,10 +18,24 @@ const { SERVER_URL } = config();
 const SendLaterList = props => {
   const state = useLocalStore(() => SendLaterInitState);
 
+  /**
+   * TODO:
+   *
+   */
   useEffect(() => {
     const fetchData = async () => {
       const listData = await axios.get(`${SERVER_URL}/mailedit`);
       state.list = listData.data;
+
+      setTimeout(() => {
+        if (state.list.length === 0) {
+          state.noData = true;
+        }
+      }, 5000);
+      // await axios
+      //   .get(`${SERVER_URL}/mailedit`)
+      //   .then(data => (state.list = data.data))
+      //   .catch(err => console.log(err));
     };
     fetchData();
   }, []);
@@ -89,7 +103,7 @@ const SendLaterList = props => {
             title={e.emailTitle}
             bordered={false}
             key={i}
-            value={e}
+            // value={e}
             style={{ margin: "1em" }}
           >
             <div className="card-inner-wrapper">
@@ -205,10 +219,27 @@ const SendLaterList = props => {
           </Card>
         ))
       ) : (
-        <div className="list-spinner">
-          {/* TODO: NoData after setTimeout 5000  */}
-          <Loader type="Oval" color="#1B9CFC" height="100" width="100" />
-        </div>
+        <>
+          {state.noData === false ? (
+            <div className="list-spinner">
+              {/* TODO: NoData after setTimeout 5000  */}
+              <Loader type="Oval" color="#1B9CFC" height="100" width="100" />
+            </div>
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "2em",
+              }}
+            >
+              No Data
+            </div>
+          )}
+        </>
       )}
     </ListPageWrapper>
   ));
