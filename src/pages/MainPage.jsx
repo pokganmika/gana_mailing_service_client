@@ -29,9 +29,15 @@ const MainPage = props => {
         state.mailMonthlyData = mailMonthlyResult.data[0].stats[0].metrics;
 
         setTimeout(() => {
-          state.dbData = !state.dbData && false;
-          state.mailWeeklyData = !state.mailWeeklyData && false;
-          state.mailMonthlyData = !state.mailMonthlyData && false;
+          if (!mailWeeklyResult) {
+            state.mailWeeklyData = false;
+          }
+          if (!mailMonthlyResult) {
+            state.mailMonthlyData = false;
+          }
+          if (!dbResult) {
+            state.dbData = false;
+          }
         }, 5000);
 
         console.log("::mainpage::mailweeklyresult:: ---> : ", mailWeeklyResult);

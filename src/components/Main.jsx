@@ -259,7 +259,7 @@ export default function MiniDrawer(props) {
             </ListItem>
           </Link>
 
-          <Link to="/testmail">
+          {/* <Link to="/testmail">
             <ListItem button key={"Test Mail"}>
               <ListItemIcon>
                 <CheckBox />
@@ -267,7 +267,7 @@ export default function MiniDrawer(props) {
 
               <ListItemText style={{ color: "black" }} primary={"Test Mail"} />
             </ListItem>
-          </Link>
+          </Link> */}
         </List>
 
         <Divider />
