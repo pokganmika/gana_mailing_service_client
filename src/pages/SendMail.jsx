@@ -144,6 +144,7 @@ const SendMail = () => {
             e.preventDefault();
             onTestSubmit(state);
             state.modal.visible = false;
+            state.buttonAble = true;
           }}
           onCancel={e => {
             e.preventDefault();
@@ -158,17 +159,28 @@ const SendMail = () => {
           />
         </Modal>
 
-        <MButton
-          variant="outlined"
-          color="primary"
-          className="mail-button"
-          onClick={e => {
-            e.preventDefault();
-            onSubmit(state);
-          }}
-        >
-          Send
-        </MButton>
+        {state.buttonAble ? (
+          <MButton
+            variant="outlined"
+            color="primary"
+            className="mail-button"
+            onClick={e => {
+              e.preventDefault();
+              onSubmit(state);
+            }}
+          >
+            Send
+          </MButton>
+        ) : (
+          <MButton
+            variant="outlined"
+            color="primary"
+            className="mail-button"
+            disabled
+          >
+            Send
+          </MButton>
+        )}
       </div>
     </MailWrapper>
   ));

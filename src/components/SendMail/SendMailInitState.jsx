@@ -40,4 +40,5 @@ export const SendMailInitState = {
     email: "",
     visible: false,
   },
+  buttonAble: false,
 };
