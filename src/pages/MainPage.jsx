@@ -133,10 +133,67 @@ const MainPage = props => {
         )}
       </div>
 
+      {/** TODO: Add percent data in card (Need refactoring) */}
       <div className="mail-status">
         <div className="mail-status-child">
           <h2>Weekly Mail Data</h2>
+
           {state.mailWeeklyData ? (
+            <div className="mail-status-card-wrapper">
+              <div className="mail-status-card">
+                <ACard title="REQUESTS" bordered={false}>
+                  <p>{state.mailWeeklyData.requests}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="DELIVERED" bordered={false}>
+                  <p>{state.mailWeeklyData.delivered}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="OPENED" bordered={false}>
+                  <p>{state.mailWeeklyData.opens}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="CLICKED" bordered={false}>
+                  <p>{state.mailWeeklyData.clicks}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="BOUNCES" bordered={false}>
+                  <p>{state.mailWeeklyData.bounces}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="SPAM REPORTS" bordered={false}>
+                  <p>{state.mailWeeklyData.spam_reports}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="UNSUBSCRIBED" bordered={false}>
+                  <p>{state.mailWeeklyData.unsubscribes}</p>
+                </ACard>
+              </div>
+            </div>
+          ) : (
+            <>
+              {state.mailWeeklyData === false ? (
+                <div>No Data</div>
+              ) : (
+                <div className="main-spinner">
+                  <Loader type="Oval" color="#1B9CFC" height="70" width="70" />
+                </div>
+              )}
+            </>
+          )}
+          {/* {state.mailWeeklyData ? (
             <div className="mail-data">
               <Card title={"REQUESTS"} data={state.mailWeeklyData.requests} />
               <Card
@@ -192,12 +249,67 @@ const MainPage = props => {
                 </div>
               )}
             </>
-          )}
+          )} */}
         </div>
 
         <div className="mail-status-child">
           <h2>Monthly Mail Data</h2>
           {state.mailMonthlyData ? (
+            <div className="mail-status-card-wrapper">
+              <div className="mail-status-card">
+                <ACard title="REQUESTS" bordered={false}>
+                  <p>{state.mailMonthlyData.requests}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="DELIVERED" bordered={false}>
+                  <p>{state.mailMonthlyData.delivered}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="OPENED" bordered={false}>
+                  <p>{state.mailMonthlyData.opens}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="CLICKED" bordered={false}>
+                  <p>{state.mailMonthlyData.clicks}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="BOUNCES" bordered={false}>
+                  <p>{state.mailMonthlyData.bounces}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="SPAM REPORTS" bordered={false}>
+                  <p>{state.mailMonthlyData.spam_reports}</p>
+                </ACard>
+              </div>
+
+              <div className="mail-status-card">
+                <ACard title="UNSUBSCRIBED" bordered={false}>
+                  <p>{state.mailMonthlyData.unsubscribes}</p>
+                </ACard>
+              </div>
+            </div>
+          ) : (
+            <>
+              {state.mailMonthlyData === false ? (
+                <div>No Data</div>
+              ) : (
+                <div className="main-spinner">
+                  <Loader type="Oval" color="#1B9CFC" height="70" width="70" />
+                </div>
+              )}
+            </>
+          )}
+          {/* {state.mailMonthlyData ? (
             <div className="mail-data">
               <Card title={"REQUESTS"} data={state.mailMonthlyData.requests} />
               <Card
@@ -256,9 +368,12 @@ const MainPage = props => {
                 </div>
               )}
             </>
-          )}
+          )} */}
         </div>
       </div>
+
+      {/** ===== ====== */}
+
       {/* <div className="mail-status">
         {state.mailWeeklyData !== null && state.mailMonthlyData !== null ? (
           <>
@@ -392,15 +507,16 @@ const MainPageWrapper = styled(PageWrapper)`
     justify-content: center;
     align-items: center;
   }
+
   .db-status {
     width: 95%;
     height: 25%;
     padding: 1.5em;
-    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.1); */
     .db-status-card-wrapper {
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      /* justify-content: space-between; */
       .db-status-card {
         width: 100%;
         margin-right: 1em;
@@ -415,19 +531,31 @@ const MainPageWrapper = styled(PageWrapper)`
       }
     }
   }
+
   .mail-status {
     width: 95%;
     height: 70%;
-    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.1); */
     padding: 1.5em;
     .mail-status-child {
       width: 100%;
       height: 50%;
-      .mail-data {
+      .mail-status-card-wrapper {
         width: 100%;
-        height: 35%;
         display: flex;
-        flex-flow: wrap;
+        /* justify-content: space-between; */
+        /* flex-flow: row wrap; */
+        .mail-status-card {
+          width: 100%;
+          margin: 1em;
+          padding-bottom: 0;
+          p {
+            font-weight: bold;
+            font-size: 1.8em;
+            text-align: center;
+            margin-bottom: 0;
+          }
+        }
       }
     }
   }
