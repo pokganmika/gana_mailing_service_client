@@ -122,8 +122,10 @@ const MainPage = props => {
 
             <div className="db-status-card">
               <ACard title="Avg. Subscribe Rate" bordered={false}>
-                <p>{`${(state.dbData.subsCount / state.dbData.scannedCount).toFixed(2) *
-                  100} %`}</p>
+                <p>{`${(
+                  (state.dbData.subsCount / state.dbData.scannedCount) *
+                  100
+                ).toFixed(2)} %`}</p>
               </ACard>
             </div>
           </div>
