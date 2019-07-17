@@ -8,6 +8,7 @@ import { Card as ACard } from "antd";
 
 import { PageWrapper } from "../styles/PageWrapper";
 import { MainPageInitState } from "../components/MainPage";
+import { dataPerCalc } from "../service/dataService";
 import MainCard from "../components/common/MainCard";
 import Card from "../components/common/Card";
 
@@ -264,7 +265,12 @@ const MainPage = props => {
 
               <div className="mail-status-card">
                 <ACard title="DELIVERED" bordered={false}>
-                  <p>{state.mailMonthlyData.delivered}</p>
+                  <p>
+                    {dataPerCalc(
+                      state.mailMonthlyData.delivered,
+                      state.mailMonthlyData.requests,
+                    )}
+                  </p>
                 </ACard>
               </div>
 
