@@ -4,7 +4,6 @@ import { toJS } from "mobx";
 import { useLocalStore, useObserver } from "mobx-react-lite";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
-import { Card as ACard } from "antd";
 
 import { PageWrapper } from "../styles/PageWrapper";
 import { MainPageInitState } from "../components/MainPage";
@@ -100,31 +99,11 @@ const MainPage = props => {
         <h2>Subscriber Data</h2>
 
         {state.dbData !== null ? (
-          <div className="db-status-card-wrapper">
-            <div className="db-status-card">
-              <ACard title="Total User" bordered={false}>
-                <p>{state.dbData.scannedCount}</p>
-              </ACard>
-            </div>
-
-            <div className="db-status-card">
-              <ACard title="Subscriber" bordered={false}>
-                <p>{state.dbData.subsCount}</p>
-              </ACard>
-            </div>
-
-            <div className="db-status-card">
-              <ACard title="Unsubscriber" bordered={false}>
-                <p>{state.dbData.scannedCount - state.dbData.subsCount}</p>
-              </ACard>
-            </div>
-
-            <div className="db-status-card">
-              <ACard title="Avg. Subscribe Rate" bordered={false}>
-                <p>{`${(state.dbData.subsCount / state.dbData.scannedCount) *
-                  100} %`}</p>
-              </ACard>
-            </div>
+          <div style={{ width: "50%" }}>
+            <MainCard
+              subs={state.dbData.subsCount}
+              total={state.dbData.scannedCount}
+            />
           </div>
         ) : (
           <div className="main-spinner">
@@ -147,7 +126,7 @@ const MainPage = props => {
                 }
               />
               <Card
-                title={"OPENED"}
+                title={"OPEND"}
                 data={state.mailWeeklyData.opens}
                 per={state.mailWeeklyData.opens / state.mailWeeklyData.requests}
               />
@@ -209,7 +188,7 @@ const MainPage = props => {
                 }
               />
               <Card
-                title={"OPENED"}
+                title={"OPEND"}
                 data={state.mailMonthlyData.opens}
                 per={
                   state.mailMonthlyData.opens / state.mailMonthlyData.requests
@@ -395,30 +374,17 @@ const MainPageWrapper = styled(PageWrapper)`
   .db-status {
     width: 95%;
     height: 25%;
+    border-radius: 20px;
+    /* border: 1px solid green; */
+    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.2);
     padding: 1.5em;
-    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.1);
-    .db-status-card-wrapper {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      .db-status-card {
-        width: 100%;
-        margin-right: 1em;
-        margin-left: 1em;
-        padding-bottom: 0;
-        p {
-          font-weight: bold;
-          font-size: 1.8em;
-          text-align: center;
-          margin-bottom: 0;
-        }
-      }
-    }
   }
   .mail-status {
     width: 95%;
     height: 70%;
-    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    /* border: 1px solid blue; */
+    box-shadow: 0 0 20px -3px rgba(0, 0, 0, 0.2);
     padding: 1.5em;
     .mail-status-child {
       width: 100%;
