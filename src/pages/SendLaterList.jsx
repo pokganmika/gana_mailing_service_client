@@ -24,19 +24,30 @@ const SendLaterList = props => {
    */
   useEffect(() => {
     const fetchData = async () => {
-      const listData = await axios.get(`${SERVER_URL}/mailedit`);
-      state.list = listData.data;
+      // const listData = await axios.get(`${SERVER_URL}/mailedit`);
+      // state.list = listData.data;
+
+      // ===== try / catch =====
+      try {
+        const listData = await axios.get(`${SERVER_URL}/mailedit`);
+        state.list = listData.data;
+      } catch (error) {
+        console.log("::sendLaterList::page::fetchData::error:: ---> : ", error);
+      }
+
+      // ===== then / catch =====
+      // await axios
+      //   .get(`${SERVER_URL}/mailedit`)
+      //   .then(data => (state.list = data.data))
+      //   .catch(err => console.log('::sendLaterList::page::fetchData::error:: ---> : ', err));
 
       setTimeout(() => {
         if (state.list.length === 0) {
           state.noData = true;
         }
       }, 5000);
-      // await axios
-      //   .get(`${SERVER_URL}/mailedit`)
-      //   .then(data => (state.list = data.data))
-      //   .catch(err => console.log(err));
     };
+
     fetchData();
   }, []);
 
@@ -163,7 +174,7 @@ const SendLaterList = props => {
               </div>
 
               <div className="list-buttons">
-                {e.status !== "Pending" && (
+                {e.status === "Pause" && (
                   <MButton
                     className="list-button"
                     variant="outlined"
