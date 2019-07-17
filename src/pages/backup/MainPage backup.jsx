@@ -5,12 +5,12 @@ import { useLocalStore, useObserver } from "mobx-react-lite";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
 
-import { PageWrapper } from "../styles/PageWrapper";
-import { MainPageInitState } from "../components/MainPage";
-import MainCard from "../components/common/MainCard";
-import Card from "../components/common/Card";
+import { PageWrapper } from "../../styles/PageWrapper";
+import { MainPageInitState } from "../../components/MainPage";
+import MainCard from "../../components/common/MainCard";
+import Card from "../../components/common/Card";
 
-import config from "../config";
+import config from "../../config";
 const { SERVER_URL } = config();
 
 const MainPage = props => {
