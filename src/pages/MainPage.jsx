@@ -4,7 +4,7 @@ import { toJS } from "mobx";
 import { useLocalStore, useObserver } from "mobx-react-lite";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
-import { Card as ACard } from "antd";
+import { Button, Card as ACard } from "antd";
 
 import { PageWrapper } from "../styles/PageWrapper";
 import { MainPageInitState } from "../components/MainPage";
@@ -94,6 +94,12 @@ const MainPage = props => {
     fetchData();
   }, []);
 
+  // TODO: Check this code
+  const updateSubscrinbeData = async () => {
+    const dbResult = await axios.get(`${SERVER_URL}/subscribe/main`);
+    state.dbData = dbResult.data;
+  };
+
   console.log("::MainPage::state:: ---> : ", toJS(state));
   return useObserver(() => (
     <MainPageWrapper>
@@ -103,31 +109,21 @@ const MainPage = props => {
         {state.dbData !== null ? (
           <div className="db-status-card-wrapper">
             <div className="db-status-card">
-              <ACard title="Total User" bordered={false}>
+              <ACard title="Total Subscriber" bordered={false}>
                 <p>{state.dbData.scannedCount}</p>
               </ACard>
             </div>
-
-            <div className="db-status-card">
-              <ACard title="Subscriber" bordered={false}>
-                <p>{state.dbData.subsCount}</p>
-              </ACard>
-            </div>
-
-            <div className="db-status-card">
-              <ACard title="Unsubscriber" bordered={false}>
-                <p>{state.dbData.scannedCount - state.dbData.subsCount}</p>
-              </ACard>
-            </div>
-
-            <div className="db-status-card">
-              <ACard title="Avg. Subscribe Rate" bordered={false}>
-                <p>{`${(
-                  (state.dbData.subsCount / state.dbData.scannedCount) *
-                  100
-                ).toFixed(2)} %`}</p>
-              </ACard>
-            </div>
+            <Button
+              className="update-button"
+              type="primary"
+              onClick={async e => {
+                e.preventDefault();
+                const result = await axios.get(`${SERVER_URL}/sendmail/python`);
+                if (result) updateSubscrinbeData();
+              }}
+            >
+              Update
+            </Button>
           </div>
         ) : (
           <div className="main-spinner">
@@ -343,7 +339,7 @@ const MainPageWrapper = styled(PageWrapper)`
       display: flex;
       /* justify-content: space-between; */
       .db-status-card {
-        width: 100%;
+        width: 50%;
         margin-right: 1em;
         margin-left: 1em;
         padding-bottom: 0;
@@ -353,6 +349,9 @@ const MainPageWrapper = styled(PageWrapper)`
           text-align: center;
           margin-bottom: 0;
         }
+      }
+      .update-button {
+        margin-top: 110px;
       }
     }
   }
