@@ -3,8 +3,8 @@ export default function() {
     case "development":
       return { SERVER_URL: `http://localhost` };
     case "production":
-      return { SERVER_URL: `http://13.209.232.143` };
+      return { SERVER_URL: `http://13.209.165.73` };
     default:
-      return { SERVER_URL: `http://13.209.232.143` };
+      return { SERVER_URL: `http://13.209.165.73` };
   }
 }
