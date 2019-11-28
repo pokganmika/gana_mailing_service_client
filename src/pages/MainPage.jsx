@@ -118,8 +118,9 @@ const MainPage = props => {
               type="primary"
               onClick={async e => {
                 e.preventDefault();
-                const result = await axios.get(`${SERVER_URL}/sendmail/python`);
-                if (result) updateSubscrinbeData();
+                const update = await axios.get(`${SERVER_URL}/sendmail/python`);
+                const refresh = await axios.get(`${SERVER_URL}/sendmail/reset`);
+                if (refresh) updateSubscrinbeData();
               }}
             >
               Update
